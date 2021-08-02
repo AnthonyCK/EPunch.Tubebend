@@ -72,6 +72,16 @@ namespace EPunch.Tubebend
             Bendings.Add(bending);
             #endregion
         }
+        public void DelBending (Bending bending)
+        {
+            Bendings.Remove(bending);
+        }
+        public void DelBending(int id)
+        {
+            Bendings.RemoveAt(id);
+        }
+
+
         public void SetBendingGroup(BendingGroup bendingGroup)
         {
             SecShape = bendingGroup.SecShape;

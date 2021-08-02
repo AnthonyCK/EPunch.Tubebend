@@ -32,6 +32,8 @@ namespace EPunch.Tubebend
             bendingTable.Columns.Add("Radius", typeof(double));
             bendingTable.Columns.Add("Length", typeof(double));
             bendingTable.PrimaryKey = new DataColumn[] { pkBendingID };
+            bendingTable.Columns["BendingID"].ReadOnly = true;
+            bendingTable.Columns["BendingID"].AutoIncrement = true;
         }
         public void AddBending(Bending bending)
         {
@@ -43,6 +45,37 @@ namespace EPunch.Tubebend
             row["Radius"] = bending.Radius;
             row["Length"] = bending.Length;
             BendingSet.Tables["Bendings"].Rows.Add(row);
+        }
+        public void AddBending(DataRow row)
+        {
+            DataRow newRow;
+            newRow = BendingSet.Tables["Bendings"].NewRow();
+            newRow["BendingID"] = BendingSet.Tables["Bendings"].Rows.Count;
+            newRow["Direction"] = row["Direction"];
+            newRow["Angle"] = row["Angle"];
+            newRow["Radius"] = row["Radius"];
+            newRow["Length"] = row["Length"];
+            BendingSet.Tables["Bendings"].Rows.Add(newRow);
+        }
+        public DataRow ConvertToRow(Bending bending)
+        {
+            DataRow row;
+            row = BendingSet.Tables["Bendings"].NewRow();
+            //row["BendingID"] = BendingSet.Tables["Bendings"].Rows.Count;
+            row["Direction"] = bending.Direction;
+            row["Angle"] = bending.Angle;
+            row["Radius"] = bending.Radius;
+            row["Length"] = bending.Length;
+            return row;
+        }
+        public void UpdateIndex()
+        {
+            var temp = BendingSet.Tables[0].Copy();
+            BendingSet.Tables[0].Rows.Clear();
+            foreach (DataRow item in temp.Rows)
+            {
+                this.AddBending(item);
+            }
         }
         public void DeleteBending(int id)
         {
@@ -75,6 +108,7 @@ namespace EPunch.Tubebend
                 this.AddBending(item);
             }
         }
+
         public void Clear()
         {
             foreach(DataTable item in BendingSet.Tables)

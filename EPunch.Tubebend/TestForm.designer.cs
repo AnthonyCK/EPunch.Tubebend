@@ -39,9 +39,6 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.singlePickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.multiPickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hitTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sectionBtn = new System.Windows.Forms.ToolStripButton();
-            this.transOnSelectBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -54,29 +51,34 @@
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.panel4 = new System.Windows.Forms.Panel();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
-            this.txtDir = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.btnDraw = new System.Windows.Forms.Button();
             this.btnReorder = new System.Windows.Forms.Button();
             this.gbxVertex = new System.Windows.Forms.GroupBox();
             this.txtR = new System.Windows.Forms.TextBox();
             this.txtThick = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnDraw = new System.Windows.Forms.Button();
+            this.btnConfirm = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.btnExportXml = new System.Windows.Forms.Button();
+            this.btnReadXml2 = new System.Windows.Forms.Button();
+            this.dgvVertex = new System.Windows.Forms.DataGridView();
             this.gbxBending = new System.Windows.Forms.GroupBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnInsert = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnBendDel = new System.Windows.Forms.Button();
+            this.txtDir = new System.Windows.Forms.TextBox();
             this.txtAngle = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.txtRadius = new System.Windows.Forms.TextBox();
             this.txtLength = new System.Windows.Forms.TextBox();
             this.btnBendAdd = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnReadXml2 = new System.Windows.Forms.Button();
             this.btnUnfold = new System.Windows.Forms.Button();
-            this.dgvVertex = new System.Windows.Forms.DataGridView();
-            this.btnNext = new System.Windows.Forms.Button();
             this.btnLast = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
             this.dgvBending = new System.Windows.Forms.DataGridView();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -105,8 +107,8 @@
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
             this.gbxVertex.SuspendLayout();
-            this.gbxBending.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVertex)).BeginInit();
+            this.gbxBending.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBending)).BeginInit();
             this.SuspendLayout();
             // 
@@ -121,12 +123,10 @@
             this.clearBtn,
             this.toolStripSeparator1,
             this.moveNodeBtn,
-            this.toolStripDropDownButton1,
-            this.sectionBtn,
-            this.transOnSelectBtn});
+            this.toolStripDropDownButton1});
             this.toolStrip1.Location = new System.Drawing.Point(4, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(425, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(242, 31);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -190,8 +190,7 @@
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.singlePickToolStripMenuItem,
-            this.multiPickToolStripMenuItem,
-            this.hitTestToolStripMenuItem});
+            this.multiPickToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -211,33 +210,6 @@
             this.multiPickToolStripMenuItem.Size = new System.Drawing.Size(166, 26);
             this.multiPickToolStripMenuItem.Text = "MultiPick";
             this.multiPickToolStripMenuItem.Click += new System.EventHandler(this.MultiPickToolStripMenuItem_Click);
-            // 
-            // hitTestToolStripMenuItem
-            // 
-            this.hitTestToolStripMenuItem.Name = "hitTestToolStripMenuItem";
-            this.hitTestToolStripMenuItem.Size = new System.Drawing.Size(166, 26);
-            this.hitTestToolStripMenuItem.Text = "Hit Test";
-            this.hitTestToolStripMenuItem.Click += new System.EventHandler(this.HitTestToolStripMenuItem_Click);
-            // 
-            // sectionBtn
-            // 
-            this.sectionBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.sectionBtn.Image = ((System.Drawing.Image)(resources.GetObject("sectionBtn.Image")));
-            this.sectionBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.sectionBtn.Name = "sectionBtn";
-            this.sectionBtn.Size = new System.Drawing.Size(68, 28);
-            this.sectionBtn.Text = "Section";
-            this.sectionBtn.Click += new System.EventHandler(this.SectionBtn_Click);
-            // 
-            // transOnSelectBtn
-            // 
-            this.transOnSelectBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.transOnSelectBtn.Image = ((System.Drawing.Image)(resources.GetObject("transOnSelectBtn.Image")));
-            this.transOnSelectBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.transOnSelectBtn.Name = "transOnSelectBtn";
-            this.transOnSelectBtn.Size = new System.Drawing.Size(115, 28);
-            this.transOnSelectBtn.Text = "transOnSelect";
-            this.transOnSelectBtn.Click += new System.EventHandler(this.TransOnSelectBtn_Click);
             // 
             // toolStripContainer1
             // 
@@ -324,7 +296,7 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.panel3);
             this.splitContainer2.Size = new System.Drawing.Size(491, 704);
-            this.splitContainer2.SplitterDistance = 347;
+            this.splitContainer2.SplitterDistance = 346;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -334,7 +306,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(487, 343);
+            this.panel2.Size = new System.Drawing.Size(487, 342);
             this.panel2.TabIndex = 0;
             this.panel2.SizeChanged += new System.EventHandler(this.Panel2_SizeChanged);
             // 
@@ -344,7 +316,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(487, 352);
+            this.panel3.Size = new System.Drawing.Size(487, 353);
             this.panel3.TabIndex = 0;
             this.panel3.SizeChanged += new System.EventHandler(this.Panel3_SizeChanged);
             // 
@@ -398,44 +370,37 @@
             // splitContainer4.Panel1
             // 
             this.splitContainer4.Panel1.AutoScroll = true;
-            this.splitContainer4.Panel1.Controls.Add(this.txtDir);
-            this.splitContainer4.Panel1.Controls.Add(this.label7);
+            this.splitContainer4.Panel1.Controls.Add(this.btnDraw);
             this.splitContainer4.Panel1.Controls.Add(this.btnReorder);
             this.splitContainer4.Panel1.Controls.Add(this.gbxVertex);
             this.splitContainer4.Panel1.Controls.Add(this.btnExportXml);
-            this.splitContainer4.Panel1.Controls.Add(this.gbxBending);
             this.splitContainer4.Panel1.Controls.Add(this.btnReadXml2);
-            this.splitContainer4.Panel1.Controls.Add(this.btnUnfold);
             this.splitContainer4.Panel1.Controls.Add(this.dgvVertex);
-            this.splitContainer4.Panel1.Controls.Add(this.btnNext);
+            this.splitContainer4.Panel1.Controls.Add(this.gbxBending);
+            this.splitContainer4.Panel1.Controls.Add(this.btnUnfold);
             this.splitContainer4.Panel1.Controls.Add(this.btnLast);
+            this.splitContainer4.Panel1.Controls.Add(this.btnNext);
             // 
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.dgvBending);
             this.splitContainer4.Size = new System.Drawing.Size(854, 696);
-            this.splitContainer4.SplitterDistance = 342;
+            this.splitContainer4.SplitterDistance = 340;
             this.splitContainer4.TabIndex = 20;
             // 
-            // txtDir
+            // btnDraw
             // 
-            this.txtDir.Location = new System.Drawing.Point(101, 289);
-            this.txtDir.Name = "txtDir";
-            this.txtDir.Size = new System.Drawing.Size(100, 25);
-            this.txtDir.TabIndex = 11;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(30, 292);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(61, 15);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "转料(B)";
+            this.btnDraw.Location = new System.Drawing.Point(340, 217);
+            this.btnDraw.Name = "btnDraw";
+            this.btnDraw.Size = new System.Drawing.Size(75, 23);
+            this.btnDraw.TabIndex = 20;
+            this.btnDraw.Text = "Draw";
+            this.btnDraw.UseVisualStyleBackColor = true;
+            this.btnDraw.Click += new System.EventHandler(this.BtnDraw_Click);
             // 
             // btnReorder
             // 
-            this.btnReorder.Location = new System.Drawing.Point(207, 143);
+            this.btnReorder.Location = new System.Drawing.Point(520, 55);
             this.btnReorder.Name = "btnReorder";
             this.btnReorder.Size = new System.Drawing.Size(75, 23);
             this.btnReorder.TabIndex = 19;
@@ -448,9 +413,9 @@
             this.gbxVertex.Controls.Add(this.txtR);
             this.gbxVertex.Controls.Add(this.txtThick);
             this.gbxVertex.Controls.Add(this.label4);
-            this.gbxVertex.Controls.Add(this.btnDraw);
+            this.gbxVertex.Controls.Add(this.btnConfirm);
             this.gbxVertex.Controls.Add(this.label6);
-            this.gbxVertex.Location = new System.Drawing.Point(16, 3);
+            this.gbxVertex.Location = new System.Drawing.Point(25, 5);
             this.gbxVertex.Name = "gbxVertex";
             this.gbxVertex.Size = new System.Drawing.Size(289, 143);
             this.gbxVertex.TabIndex = 17;
@@ -481,15 +446,15 @@
             this.label4.TabIndex = 14;
             this.label4.Text = "R";
             // 
-            // btnDraw
+            // btnConfirm
             // 
-            this.btnDraw.Location = new System.Drawing.Point(67, 96);
-            this.btnDraw.Name = "btnDraw";
-            this.btnDraw.Size = new System.Drawing.Size(75, 23);
-            this.btnDraw.TabIndex = 2;
-            this.btnDraw.Text = "Draw";
-            this.btnDraw.UseVisualStyleBackColor = true;
-            this.btnDraw.Click += new System.EventHandler(this.BtnDraw_Click);
+            this.btnConfirm.Location = new System.Drawing.Point(67, 96);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(75, 23);
+            this.btnConfirm.TabIndex = 2;
+            this.btnConfirm.Text = "Confirm";
+            this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.Click += new System.EventHandler(this.BtnConfirm_Click);
             // 
             // label6
             // 
@@ -502,7 +467,7 @@
             // 
             // btnExportXml
             // 
-            this.btnExportXml.Location = new System.Drawing.Point(16, 143);
+            this.btnExportXml.Location = new System.Drawing.Point(329, 55);
             this.btnExportXml.Name = "btnExportXml";
             this.btnExportXml.Size = new System.Drawing.Size(75, 23);
             this.btnExportXml.TabIndex = 11;
@@ -510,22 +475,98 @@
             this.btnExportXml.UseVisualStyleBackColor = true;
             this.btnExportXml.Click += new System.EventHandler(this.BtnExportXml_Click);
             // 
+            // btnReadXml2
+            // 
+            this.btnReadXml2.Location = new System.Drawing.Point(421, 55);
+            this.btnReadXml2.Name = "btnReadXml2";
+            this.btnReadXml2.Size = new System.Drawing.Size(75, 23);
+            this.btnReadXml2.TabIndex = 12;
+            this.btnReadXml2.Text = "Import";
+            this.btnReadXml2.UseVisualStyleBackColor = true;
+            this.btnReadXml2.Click += new System.EventHandler(this.BtnReadXml_Click);
+            // 
+            // dgvVertex
+            // 
+            this.dgvVertex.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dgvVertex.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVertex.Location = new System.Drawing.Point(591, 3);
+            this.dgvVertex.Name = "dgvVertex";
+            this.dgvVertex.RowHeadersWidth = 51;
+            this.dgvVertex.RowTemplate.Height = 27;
+            this.dgvVertex.Size = new System.Drawing.Size(260, 333);
+            this.dgvVertex.TabIndex = 16;
+            // 
             // gbxBending
             // 
             this.gbxBending.AutoSize = true;
+            this.gbxBending.Controls.Add(this.btnCancel);
+            this.gbxBending.Controls.Add(this.btnInsert);
+            this.gbxBending.Controls.Add(this.btnUpdate);
+            this.gbxBending.Controls.Add(this.btnBendDel);
+            this.gbxBending.Controls.Add(this.txtDir);
             this.gbxBending.Controls.Add(this.txtAngle);
+            this.gbxBending.Controls.Add(this.label7);
             this.gbxBending.Controls.Add(this.txtRadius);
             this.gbxBending.Controls.Add(this.txtLength);
             this.gbxBending.Controls.Add(this.btnBendAdd);
             this.gbxBending.Controls.Add(this.label1);
             this.gbxBending.Controls.Add(this.label2);
             this.gbxBending.Controls.Add(this.label3);
-            this.gbxBending.Location = new System.Drawing.Point(16, 172);
+            this.gbxBending.Location = new System.Drawing.Point(25, 154);
             this.gbxBending.Name = "gbxBending";
-            this.gbxBending.Size = new System.Drawing.Size(289, 135);
+            this.gbxBending.Size = new System.Drawing.Size(289, 192);
             this.gbxBending.TabIndex = 18;
             this.gbxBending.TabStop = false;
             this.gbxBending.Text = "Bending";
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Enabled = false;
+            this.btnCancel.Location = new System.Drawing.Point(201, 145);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 15;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
+            // 
+            // btnInsert
+            // 
+            this.btnInsert.Location = new System.Drawing.Point(201, 56);
+            this.btnInsert.Name = "btnInsert";
+            this.btnInsert.Size = new System.Drawing.Size(75, 23);
+            this.btnInsert.TabIndex = 14;
+            this.btnInsert.Text = "Insert";
+            this.btnInsert.UseVisualStyleBackColor = true;
+            this.btnInsert.Click += new System.EventHandler(this.BtnInsert_Click);
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Enabled = false;
+            this.btnUpdate.Location = new System.Drawing.Point(201, 116);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.TabIndex = 13;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
+            // 
+            // btnBendDel
+            // 
+            this.btnBendDel.Location = new System.Drawing.Point(201, 85);
+            this.btnBendDel.Name = "btnBendDel";
+            this.btnBendDel.Size = new System.Drawing.Size(75, 23);
+            this.btnBendDel.TabIndex = 11;
+            this.btnBendDel.Text = "Delete";
+            this.btnBendDel.UseVisualStyleBackColor = true;
+            this.btnBendDel.Click += new System.EventHandler(this.BtnBendDel_Click);
+            // 
+            // txtDir
+            // 
+            this.txtDir.Location = new System.Drawing.Point(85, 120);
+            this.txtDir.Name = "txtDir";
+            this.txtDir.Size = new System.Drawing.Size(100, 25);
+            this.txtDir.TabIndex = 11;
             // 
             // txtAngle
             // 
@@ -534,23 +575,32 @@
             this.txtAngle.Size = new System.Drawing.Size(100, 25);
             this.txtAngle.TabIndex = 3;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(19, 126);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(61, 15);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "转料(B)";
+            // 
             // txtRadius
             // 
-            this.txtRadius.Location = new System.Drawing.Point(85, 55);
+            this.txtRadius.Location = new System.Drawing.Point(85, 56);
             this.txtRadius.Name = "txtRadius";
             this.txtRadius.Size = new System.Drawing.Size(100, 25);
             this.txtRadius.TabIndex = 4;
             // 
             // txtLength
             // 
-            this.txtLength.Location = new System.Drawing.Point(85, 86);
+            this.txtLength.Location = new System.Drawing.Point(85, 89);
             this.txtLength.Name = "txtLength";
             this.txtLength.Size = new System.Drawing.Size(100, 25);
             this.txtLength.TabIndex = 5;
             // 
             // btnBendAdd
             // 
-            this.btnBendAdd.Location = new System.Drawing.Point(201, 37);
+            this.btnBendAdd.Location = new System.Drawing.Point(201, 27);
             this.btnBendAdd.Name = "btnBendAdd";
             this.btnBendAdd.Size = new System.Drawing.Size(75, 23);
             this.btnBendAdd.TabIndex = 6;
@@ -579,62 +629,42 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 89);
+            this.label3.Location = new System.Drawing.Point(18, 92);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 15);
             this.label3.TabIndex = 10;
             this.label3.Text = "送料(Y)";
             // 
-            // btnReadXml2
-            // 
-            this.btnReadXml2.Location = new System.Drawing.Point(108, 143);
-            this.btnReadXml2.Name = "btnReadXml2";
-            this.btnReadXml2.Size = new System.Drawing.Size(75, 23);
-            this.btnReadXml2.TabIndex = 12;
-            this.btnReadXml2.Text = "Import";
-            this.btnReadXml2.UseVisualStyleBackColor = true;
-            this.btnReadXml2.Click += new System.EventHandler(this.BtnReadXml_Click);
-            // 
             // btnUnfold
             // 
-            this.btnUnfold.Location = new System.Drawing.Point(126, 313);
+            this.btnUnfold.Location = new System.Drawing.Point(421, 255);
             this.btnUnfold.Name = "btnUnfold";
             this.btnUnfold.Size = new System.Drawing.Size(75, 23);
             this.btnUnfold.TabIndex = 13;
             this.btnUnfold.Text = "Unfold";
             this.btnUnfold.UseVisualStyleBackColor = true;
             // 
-            // dgvVertex
-            // 
-            this.dgvVertex.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            this.dgvVertex.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVertex.Location = new System.Drawing.Point(591, 3);
-            this.dgvVertex.Name = "dgvVertex";
-            this.dgvVertex.RowHeadersWidth = 51;
-            this.dgvVertex.RowTemplate.Height = 27;
-            this.dgvVertex.Size = new System.Drawing.Size(260, 333);
-            this.dgvVertex.TabIndex = 16;
-            // 
-            // btnNext
-            // 
-            this.btnNext.Location = new System.Drawing.Point(207, 313);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(75, 23);
-            this.btnNext.TabIndex = 14;
-            this.btnNext.Text = ">";
-            this.btnNext.UseVisualStyleBackColor = true;
-            // 
             // btnLast
             // 
-            this.btnLast.Location = new System.Drawing.Point(45, 313);
+            this.btnLast.Location = new System.Drawing.Point(340, 255);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(75, 23);
             this.btnLast.TabIndex = 15;
             this.btnLast.Text = "<";
             this.btnLast.UseVisualStyleBackColor = true;
             // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(502, 255);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(75, 23);
+            this.btnNext.TabIndex = 14;
+            this.btnNext.Text = ">";
+            this.btnNext.UseVisualStyleBackColor = true;
+            // 
             // dgvBending
             // 
+            this.dgvBending.AllowUserToAddRows = false;
             this.dgvBending.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dgvBending.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBending.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -642,8 +672,9 @@
             this.dgvBending.Name = "dgvBending";
             this.dgvBending.RowHeadersWidth = 51;
             this.dgvBending.RowTemplate.Height = 27;
-            this.dgvBending.Size = new System.Drawing.Size(854, 350);
+            this.dgvBending.Size = new System.Drawing.Size(854, 352);
             this.dgvBending.TabIndex = 19;
+            this.dgvBending.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvBending_CellValueChanged);
             // 
             // saveFileDialog1
             // 
@@ -686,9 +717,9 @@
             this.splitContainer4.ResumeLayout(false);
             this.gbxVertex.ResumeLayout(false);
             this.gbxVertex.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVertex)).EndInit();
             this.gbxBending.ResumeLayout(false);
             this.gbxBending.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVertex)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBending)).EndInit();
             this.ResumeLayout(false);
 
@@ -705,10 +736,7 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem singlePickToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem multiPickToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hitTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton mouseBtn;
-        private System.Windows.Forms.ToolStripButton sectionBtn;
-        private System.Windows.Forms.ToolStripButton transOnSelectBtn;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -719,7 +747,7 @@
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.TextBox txtR;
-        private System.Windows.Forms.Button btnDraw;
+        private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -747,5 +775,10 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private System.Windows.Forms.TextBox txtDir;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnDraw;
+        private System.Windows.Forms.Button btnBendDel;
+        private System.Windows.Forms.Button btnInsert;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnCancel;
     }
 }
