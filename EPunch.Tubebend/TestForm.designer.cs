@@ -83,6 +83,8 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cbbSecShape = new System.Windows.Forms.ComboBox();
             this.toolStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -266,7 +268,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(1348, 704);
-            this.splitContainer1.SplitterDistance = 856;
+            this.splitContainer1.SplitterDistance = 855;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -276,7 +278,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(852, 700);
+            this.panel1.Size = new System.Drawing.Size(851, 700);
             this.panel1.TabIndex = 0;
             this.panel1.SizeChanged += new System.EventHandler(this.Panel1_SizeChanged);
             // 
@@ -295,8 +297,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.panel3);
-            this.splitContainer2.Size = new System.Drawing.Size(491, 704);
-            this.splitContainer2.SplitterDistance = 346;
+            this.splitContainer2.Size = new System.Drawing.Size(492, 704);
+            this.splitContainer2.SplitterDistance = 345;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -306,7 +308,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(487, 342);
+            this.panel2.Size = new System.Drawing.Size(488, 341);
             this.panel2.TabIndex = 0;
             this.panel2.SizeChanged += new System.EventHandler(this.Panel2_SizeChanged);
             // 
@@ -316,7 +318,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(487, 353);
+            this.panel3.Size = new System.Drawing.Size(488, 354);
             this.panel3.TabIndex = 0;
             this.panel3.SizeChanged += new System.EventHandler(this.Panel3_SizeChanged);
             // 
@@ -385,7 +387,7 @@
             // 
             this.splitContainer4.Panel2.Controls.Add(this.dgvBending);
             this.splitContainer4.Size = new System.Drawing.Size(854, 696);
-            this.splitContainer4.SplitterDistance = 340;
+            this.splitContainer4.SplitterDistance = 339;
             this.splitContainer4.TabIndex = 20;
             // 
             // btnDraw
@@ -410,6 +412,8 @@
             // gbxVertex
             // 
             this.gbxVertex.AutoSize = true;
+            this.gbxVertex.Controls.Add(this.cbbSecShape);
+            this.gbxVertex.Controls.Add(this.label5);
             this.gbxVertex.Controls.Add(this.txtR);
             this.gbxVertex.Controls.Add(this.txtThick);
             this.gbxVertex.Controls.Add(this.label4);
@@ -424,14 +428,14 @@
             // 
             // txtR
             // 
-            this.txtR.Location = new System.Drawing.Point(67, 24);
+            this.txtR.Location = new System.Drawing.Point(85, 60);
             this.txtR.Name = "txtR";
             this.txtR.Size = new System.Drawing.Size(100, 25);
             this.txtR.TabIndex = 0;
             // 
             // txtThick
             // 
-            this.txtThick.Location = new System.Drawing.Point(67, 55);
+            this.txtThick.Location = new System.Drawing.Point(85, 91);
             this.txtThick.Name = "txtThick";
             this.txtThick.Size = new System.Drawing.Size(100, 25);
             this.txtThick.TabIndex = 13;
@@ -440,15 +444,15 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(36, 27);
+            this.label4.Location = new System.Drawing.Point(4, 63);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(15, 15);
+            this.label4.Size = new System.Drawing.Size(61, 15);
             this.label4.TabIndex = 14;
-            this.label4.Text = "R";
+            this.label4.Text = "半径(R)";
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(67, 96);
+            this.btnConfirm.Location = new System.Drawing.Point(201, 29);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(75, 23);
             this.btnConfirm.TabIndex = 2;
@@ -459,11 +463,11 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(29, 58);
+            this.label6.Location = new System.Drawing.Point(4, 94);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(22, 15);
+            this.label6.Size = new System.Drawing.Size(37, 15);
             this.label6.TabIndex = 16;
-            this.label6.Text = "厚";
+            this.label6.Text = "厚度";
             // 
             // btnExportXml
             // 
@@ -535,7 +539,7 @@
             this.btnInsert.Location = new System.Drawing.Point(201, 56);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(75, 23);
-            this.btnInsert.TabIndex = 14;
+            this.btnInsert.TabIndex = 8;
             this.btnInsert.Text = "Insert";
             this.btnInsert.UseVisualStyleBackColor = true;
             this.btnInsert.Click += new System.EventHandler(this.BtnInsert_Click);
@@ -556,7 +560,7 @@
             this.btnBendDel.Location = new System.Drawing.Point(201, 85);
             this.btnBendDel.Name = "btnBendDel";
             this.btnBendDel.Size = new System.Drawing.Size(75, 23);
-            this.btnBendDel.TabIndex = 11;
+            this.btnBendDel.TabIndex = 9;
             this.btnBendDel.Text = "Delete";
             this.btnBendDel.UseVisualStyleBackColor = true;
             this.btnBendDel.Click += new System.EventHandler(this.BtnBendDel_Click);
@@ -566,7 +570,7 @@
             this.txtDir.Location = new System.Drawing.Point(85, 120);
             this.txtDir.Name = "txtDir";
             this.txtDir.Size = new System.Drawing.Size(100, 25);
-            this.txtDir.TabIndex = 11;
+            this.txtDir.TabIndex = 6;
             // 
             // txtAngle
             // 
@@ -603,7 +607,7 @@
             this.btnBendAdd.Location = new System.Drawing.Point(201, 27);
             this.btnBendAdd.Name = "btnBendAdd";
             this.btnBendAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnBendAdd.TabIndex = 6;
+            this.btnBendAdd.TabIndex = 7;
             this.btnBendAdd.Text = "Add";
             this.btnBendAdd.UseVisualStyleBackColor = true;
             this.btnBendAdd.Click += new System.EventHandler(this.BtnBendAdd_Click);
@@ -672,13 +676,30 @@
             this.dgvBending.Name = "dgvBending";
             this.dgvBending.RowHeadersWidth = 51;
             this.dgvBending.RowTemplate.Height = 27;
-            this.dgvBending.Size = new System.Drawing.Size(854, 352);
+            this.dgvBending.Size = new System.Drawing.Size(854, 353);
             this.dgvBending.TabIndex = 19;
             this.dgvBending.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvBending_CellValueChanged);
             // 
             // saveFileDialog1
             // 
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveFileDialog_FileOk);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(4, 29);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(67, 15);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "截面形状";
+            // 
+            // cbbSecShape
+            // 
+            this.cbbSecShape.FormattingEnabled = true;
+            this.cbbSecShape.Location = new System.Drawing.Point(85, 29);
+            this.cbbSecShape.Name = "cbbSecShape";
+            this.cbbSecShape.Size = new System.Drawing.Size(100, 23);
+            this.cbbSecShape.TabIndex = 18;
             // 
             // TestForm
             // 
@@ -780,5 +801,7 @@
         private System.Windows.Forms.Button btnInsert;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.ComboBox cbbSecShape;
+        private System.Windows.Forms.Label label5;
     }
 }

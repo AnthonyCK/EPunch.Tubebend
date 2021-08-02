@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BendingGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Bendings>
+    <Bending Index="0">
+      <Direction>0</Direction>
+      <Angle>90</Angle>
+      <Radius>50</Radius>
+      <Length>50</Length>
+    </Bending>
+    <Bending Index="1">
+      <Direction>0</Direction>
+      <Angle>0</Angle>
+      <Radius>50</Radius>
+      <Length>50</Length>
+    </Bending>
+    <Bending Index="2">
+      <Direction>0</Direction>
+      <Angle>90</Angle>
+      <Radius>50</Radius>
+      <Length>50</Length>
+    </Bending>
+    <Bending Index="3">
+      <Direction>0</Direction>
+      <Angle>0</Angle>
+      <Radius>50</Radius>
+      <Length>50</Length>
+    </Bending>
+    <Bending Index="4">
+      <Direction>-90</Direction>
+      <Angle>90</Angle>
+      <Radius>50</Radius>
+      <Length>50</Length>
+    </Bending>
+    <Bending Index="5">
+      <Direction>0</Direction>
+      <Angle>0</Angle>
+      <Radius>50</Radius>
+      <Length>50</Length>
+    </Bending>
+  </Bendings>
+  <SecShape />
+  <Thickness>1</Thickness>
+</BendingGroup>

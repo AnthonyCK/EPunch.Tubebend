@@ -310,40 +310,6 @@ namespace EPunch.Tubebend
             } 
             #endregion
         }
-        private TopoShape CenterlineAssembly(BendingGroup bendings)
-        {
-            TopoShape centerline = new TopoShape();
-            foreach (Bending bending in bendings.Bendings)
-            {
-                //转料
-                centerline = GlobalInstance.BrepTools.Rotation(centerline, Vector3.UNIT_X, bending.Direction);
-
-                //送进
-                Vector3 edLine = new Vector3(-bending.Length, 0, 0);
-                TopoShape line = GlobalInstance.BrepTools.MakeLine(Vector3.ZERO, edLine);
-                if (centerline != null)
-                {
-                    centerline = GlobalInstance.BrepTools.MakeWire(centerline, line); 
-                }
-                else
-                {
-                    centerline = GlobalInstance.BrepTools.MakeWire(line);
-                }
-                centerline = GlobalInstance.BrepTools.Translate(centerline, -edLine);
-
-                //弯曲
-                TopoShape arc = GlobalInstance.BrepTools.MakeArc(new Vector3(0, -bending.Radius, 0), bending.Radius, 90, 90 + bending.Angle, Vector3.UNIT_Z);
-                if (arc != null)
-                {
-                    centerline = GlobalInstance.BrepTools.MakeWire(centerline, arc); 
-                }
-                centerline = GlobalInstance.BrepTools.Rotation(centerline, -Vector3.UNIT_Z, bending.Angle);
-                GeomCurve curve = new GeomCurve();
-                curve.Initialize(centerline);
-                centerline = GlobalInstance.BrepTools.Translate(centerline, -curve.GetEndPoint());
-            }
-            return centerline;
-        }
 
         private void BtnDraw_Click(object sender, EventArgs e)
         {
@@ -366,19 +332,6 @@ namespace EPunch.Tubebend
                 #endregion
             } 
             #endregion
-        }
-
-        private void BtnExportXml_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1.ShowDialog();
-        }
-        private void BtnReadXml_Click(object sender, EventArgs e)
-        {
-            openFileDialog1.ShowDialog();
-        }
-        private void SaveFileDialog_FileOk(object sender, CancelEventArgs e)
-        {
-            ExportXml.GenerateXml(bendings,saveFileDialog1.FileName);
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -460,7 +413,53 @@ namespace EPunch.Tubebend
             }
         }
 
+        private TopoShape CenterlineAssembly(BendingGroup bendings)
+        {
+            TopoShape centerline = new TopoShape();
+            foreach (Bending bending in bendings.Bendings)
+            {
+                //转料
+                centerline = GlobalInstance.BrepTools.Rotation(centerline, Vector3.UNIT_X, bending.Direction);
 
+                //送进
+                Vector3 edLine = new Vector3(-bending.Length, 0, 0);
+                TopoShape line = GlobalInstance.BrepTools.MakeLine(Vector3.ZERO, edLine);
+                if (centerline != null)
+                {
+                    centerline = GlobalInstance.BrepTools.MakeWire(centerline, line);
+                }
+                else
+                {
+                    centerline = GlobalInstance.BrepTools.MakeWire(line);
+                }
+                centerline = GlobalInstance.BrepTools.Translate(centerline, -edLine);
+
+                //弯曲
+                TopoShape arc = GlobalInstance.BrepTools.MakeArc(new Vector3(0, -bending.Radius, 0), bending.Radius, 90, 90 + bending.Angle, Vector3.UNIT_Z);
+                if (arc != null)
+                {
+                    centerline = GlobalInstance.BrepTools.MakeWire(centerline, arc);
+                }
+                centerline = GlobalInstance.BrepTools.Rotation(centerline, -Vector3.UNIT_Z, bending.Angle);
+                GeomCurve curve = new GeomCurve();
+                curve.Initialize(centerline);
+                centerline = GlobalInstance.BrepTools.Translate(centerline, -curve.GetEndPoint());
+            }
+            return centerline;
+        }
+
+        private void BtnExportXml_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.ShowDialog();
+        }
+        private void BtnReadXml_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
+        }
+        private void SaveFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            ExportXml.GenerateXml(bendings, saveFileDialog1.FileName);
+        }
 
         //private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
         //{
