@@ -22,7 +22,6 @@ namespace EPunch.Tubebend
         private AnyCAD.Presentation.RenderWindow3d renderViewYZ;
         private AnyCAD.Presentation.RenderWindow3d renderViewDraw;
         private readonly int shapeId = 1000;
-        private TopoShape topoShape = new TopoShape();
         private DataManage dataManage = new DataManage();
         public TestForm()
         {            
@@ -62,6 +61,11 @@ namespace EPunch.Tubebend
         private void DataManage_DataChange()
         {
             bendings.SetBendingGroup(dataManage);
+            txtTheoLength.Text = TheoreticalLength(bendings).ToString("0.00");
+            
+            btnNext.Enabled = false;
+            btnLast.Enabled = false;
+            btnUnfold.Enabled = true;
         }
 
         private void OnSelectElement(SelectionChangeArgs args)
@@ -200,8 +204,8 @@ namespace EPunch.Tubebend
             if (renderViewDraw != null)
             {
                 renderViewDraw.ClearScene();
-                //posOfStep = 0;
-                //stepBendings.Clear();
+                posOfStep = 0;
+                stepBendings.Clear();
                 dataManage.Clear();
                 dataManage.AcceptChanges();
             }
@@ -218,7 +222,6 @@ namespace EPunch.Tubebend
                 return;
 
             TopoShape shape = GlobalInstance.BrepTools.LoadFile(new AnyCAD.Platform.Path(dlg.FileName));
-            topoShape = shape;
             #region Render Shape
             renderView.RenderTimer.Enabled = false;
             if (shape != null)
@@ -240,8 +243,8 @@ namespace EPunch.Tubebend
         private BendingGroup bendings = new BendingGroup();
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            bendings.SecShape = GlobalInstance.BrepTools.MakeCircle(Vector3.ZERO, Convert.ToDouble(txtR.Text), Vector3.UNIT_X);
             bendings.Thickness = Convert.ToDouble(txtThick.Text);
+            bendings.SecShape = GlobalInstance.BrepTools.MakeCircle(Vector3.ZERO, Convert.ToDouble(txtR.Text), Vector3.UNIT_X);
         }
         private void BtnBendAdd_Click(object sender, EventArgs e)
         {
@@ -258,25 +261,7 @@ namespace EPunch.Tubebend
             dataManage.SetBendingGroup(bendings);
             dataManage.AcceptChanges();
 
-            #region 绘制图像
-            if (bendings.SecShape != null)
-            {
-                TopoShape centerline = CenterlineAssembly(bendings);
-                TopoShape sweep = GlobalInstance.BrepTools.Sweep(bendings.SecShape, centerline, true);
-
-                #region 渲染
-                renderViewDraw.ClearScene();
-                SceneManager sceneMgr = renderViewDraw.SceneManager;
-                SceneNode rootNode = GlobalInstance.TopoShapeConvert.ToSceneNode(sweep, 0.1f);
-                if (rootNode != null)
-                {
-                    sceneMgr.AddNode(rootNode);
-                }
-                renderViewDraw.FitAll();
-                renderViewDraw.RequestDraw(EnumRenderHint.RH_LoadScene);
-                #endregion
-            } 
-            #endregion
+            DrawBendings(bendings);
         }
         private void BtnBendDel_Click(object sender, EventArgs e)
         {
@@ -289,49 +274,12 @@ namespace EPunch.Tubebend
                 dataManage.SetBendingGroup(bendings);
                 dataManage.AcceptChanges();
             }
-
-            #region 绘制图像
-            if (bendings.SecShape != null)
-            {
-                TopoShape centerline = CenterlineAssembly(bendings);
-                TopoShape sweep = GlobalInstance.BrepTools.Sweep(bendings.SecShape, centerline, true);
-
-                #region 渲染
-                renderViewDraw.ClearScene();
-                SceneManager sceneMgr = renderViewDraw.SceneManager;
-                SceneNode rootNode = GlobalInstance.TopoShapeConvert.ToSceneNode(sweep, 0.1f);
-                if (rootNode != null)
-                {
-                    sceneMgr.AddNode(rootNode);
-                }
-                renderViewDraw.FitAll();
-                renderViewDraw.RequestDraw(EnumRenderHint.RH_LoadScene);
-                #endregion
-            } 
-            #endregion
+            DrawBendings(bendings);
         }
 
         private void BtnDraw_Click(object sender, EventArgs e)
         {
-            #region 绘制图像
-            if (bendings.SecShape != null)
-            {
-                TopoShape centerline = CenterlineAssembly(bendings);
-                TopoShape sweep = GlobalInstance.BrepTools.Sweep(bendings.SecShape, centerline, true);
-
-                #region 渲染
-                renderViewDraw.ClearScene();
-                SceneManager sceneMgr = renderViewDraw.SceneManager;
-                SceneNode rootNode = GlobalInstance.TopoShapeConvert.ToSceneNode(sweep, 0.1f);
-                if (rootNode != null)
-                {
-                    sceneMgr.AddNode(rootNode);
-                }
-                renderViewDraw.FitAll();
-                renderViewDraw.RequestDraw(EnumRenderHint.RH_LoadScene);
-                #endregion
-            } 
-            #endregion
+            DrawBendings(bendings);
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -340,26 +288,7 @@ namespace EPunch.Tubebend
             btnUpdate.Enabled = false;
             btnCancel.Enabled = false;
 
-            #region 绘制图像
-            if (bendings.SecShape != null)
-            {
-                TopoShape centerline = CenterlineAssembly(bendings);
-                TopoShape sweep = GlobalInstance.BrepTools.Sweep(bendings.SecShape, centerline, true);
-
-                #region 渲染
-                renderViewDraw.ClearScene();
-                SceneManager sceneMgr = renderViewDraw.SceneManager;
-                SceneNode rootNode = GlobalInstance.TopoShapeConvert.ToSceneNode(sweep, 0.1f);
-                if (rootNode != null)
-                {
-                    sceneMgr.AddNode(rootNode);
-                }
-                renderViewDraw.FitAll();
-                renderViewDraw.RequestDraw(EnumRenderHint.RH_LoadScene);
-                #endregion
-            } 
-            #endregion
-
+            DrawBendings(bendings);
         }
         private void BtnCancel_Click(object sender, EventArgs e)
         {
@@ -390,29 +319,39 @@ namespace EPunch.Tubebend
                 dataManage.UpdateIndex();
                 dataManage.AcceptChanges();
 
-                #region 绘制图像
-                if (bendings.SecShape != null)
+                DrawBendings(bendings);
+            }
+        }
+        private void DrawBendings(BendingGroup bendings)
+        {
+            if (bendings.SecShape != null && bendings.Bendings.Count() != 0)
+            {
+                TopoShape centerline = CenterlineAssembly(bendings);
+                TopoShape sweep = GlobalInstance.BrepTools.Sweep(bendings.SecShape, centerline, false);
+                sweep = GlobalInstance.BrepTools.MakeThicken(sweep, bendings.Thickness, 0);
+                #region 渲染
+                renderViewDraw.ClearScene();
+                SceneManager sceneMgr = renderViewDraw.SceneManager;
+                SceneNode rootNode = GlobalInstance.TopoShapeConvert.ToSceneNode(sweep, 0.1f);
+                if (rootNode != null)
                 {
-                    TopoShape centerline = CenterlineAssembly(bendings);
-                    TopoShape sweep = GlobalInstance.BrepTools.Sweep(bendings.SecShape, centerline, true);
-
-                    #region 渲染
-                    renderViewDraw.ClearScene();
-                    SceneManager sceneMgr = renderViewDraw.SceneManager;
-                    SceneNode rootNode = GlobalInstance.TopoShapeConvert.ToSceneNode(sweep, 0.1f);
-                    if (rootNode != null)
-                    {
-                        sceneMgr.AddNode(rootNode);
-                    }
-                    renderViewDraw.FitAll();
-                    renderViewDraw.RequestDraw(EnumRenderHint.RH_LoadScene);
-                    #endregion
-                } 
+                    sceneMgr.AddNode(rootNode);
+                }
+                renderViewDraw.FitAll();
+                renderViewDraw.RequestDraw(EnumRenderHint.RH_LoadScene);
                 #endregion
-
             }
         }
 
+        private Double TheoreticalLength(BendingGroup bendings)
+        {
+            Double TLength = 0;
+            foreach (var bending in bendings.Bendings)
+            {
+                TLength = TLength + bending.Length + bending.Angle * Math.PI * bending.Radius / 180;
+            }
+            return TLength;
+        }
         private TopoShape CenterlineAssembly(BendingGroup bendings)
         {
             TopoShape centerline = new TopoShape();
@@ -469,192 +408,57 @@ namespace EPunch.Tubebend
         //    dataManage.AcceptChanges();
         //    DrawBendingGroup(bendings);
         //}
-        //private void BtnUnfold_Click(object sender, EventArgs e)
-        //{
-        //    BendingGroup group = new BendingGroup(bendings);
-        //    stepBendings.Add(bendings);
-        //    DrawUnfoldGroup(bendings);
-        //    foreach(var item in GetStepShapes(group))
-        //    {
-        //        if (stepBendings.Contains(item))
-        //        {
-        //            break;
-        //        }
-        //        stepBendings.Add(new BendingGroup(item));
-        //    }
-        //    posOfStep = stepBendings.Count();
-        //}
-        //private void DrawBendingGroup(BendingGroup bends)
-        //{
-        //    renderViewDraw.ClearScene();
-
-        //    #region 绘制底面
-        //    TopoShape baseShape = GlobalInstance.BrepTools.FillFace(bends.Vertexes);
-        //    var pressSlide = GlobalInstance.BrepTools.MakeBox(bends.Center - new Vector3(25, 10, 0), Vector3.UNIT_Z, new Vector3(50, 20, 10));
-
-        //    SceneManager sceneMgr = renderViewDraw.SceneManager;
-        //    SceneNode root = GlobalInstance.TopoShapeConvert.ToSceneNode(baseShape, 0.1f);
-        //    SceneNode slideNode = GlobalInstance.TopoShapeConvert.ToSceneNode(pressSlide, 0.1f);
-        //    sceneMgr.AddNode(root);
-        //    sceneMgr.AddNode(slideNode);
-        //    #endregion
-
-        //    #region 按逆时针方向依次折弯
-        //    //var oris = bends.Bendings.OrderBy(m => m.Orientation).Select(m => m.Orientation).Distinct();
-        //    Queue<Vector3> vertexQueue = new Queue<Vector3>(bends.Vertexes);
-        //    for (int i = 0; i < vertexQueue.Count(); i++)
-        //    {
-        //        var sPt = vertexQueue.Dequeue();
-        //        var ePt = vertexQueue.Peek();
-        //        vertexQueue.Enqueue(sPt);
-        //        var line = GlobalInstance.BrepTools.MakeLine(sPt, ePt);
-        //        var face = baseShape;
-        //        var groupEdge = from m in bends.Bendings
-        //                        where m.Orientation == Math.Round(((ePt - sPt).Y >= 0 ? (ePt - sPt).AngleBetween(Vector3.UNIT_X) : (360 - (ePt - sPt).AngleBetween(Vector3.UNIT_X))), 3)
-        //                        orderby m.Index
-        //                        select m;
-        //        foreach (var bending in groupEdge)
-        //        {
-        //            if (face == null || line == null)
-        //            {
-        //                return;
-        //            }
-        //            if (face.GetShapeType() != EnumTopoShapeType.Topo_FACE || line.GetShapeType() != EnumTopoShapeType.Topo_EDGE)
-        //            {
-        //                break;
-        //            }
-        //            BendHelper helper = new BendHelper();
-        //            if (bending.Direction.Equals(EnumDir.Edge_UP))
-        //            {
-        //                helper = BendUp(face, line, bending);
-        //            }
-        //            else
-        //            {
-        //                helper = BendDown(face, line, bending);
-        //            }
-        //            ElementId id = new ElementId(bending.Index);
-        //            SceneNode node = GlobalInstance.TopoShapeConvert.ToSceneNode(helper.Sweep, 0.1f);
-        //            node.SetId(id);
-        //            sceneMgr.AddNode(node);
-        //            face = helper.EdFace;
-        //            line = helper.EdLine;
-        //        }
-
-        //    } 
-        //    #endregion
-
-        //    renderViewDraw.FitAll();
-        //    renderViewDraw.RequestDraw(EnumRenderHint.RH_LoadScene);
-
-        //}
-        //private void DrawUnfoldGroup(BendingGroup bends)
-        //{
-        //    renderViewDraw.ClearScene();
-
-        //    #region 绘制底面
-        //    TopoShape baseShape = GlobalInstance.BrepTools.FillFace(bends.Vertexes);
-        //    var pressSlide = GlobalInstance.BrepTools.MakeBox(bends.Center - new Vector3(25, 10, 0), Vector3.UNIT_Z, new Vector3(50, 20, 10));
-
-        //    SceneManager sceneMgr = renderViewDraw.SceneManager;
-        //    SceneNode root = GlobalInstance.TopoShapeConvert.ToSceneNode(baseShape, 0.1f);
-        //    SceneNode slideNode = GlobalInstance.TopoShapeConvert.ToSceneNode(pressSlide, 0.1f);
-
-        //    sceneMgr.AddNode(root);
-        //    sceneMgr.AddNode(slideNode);
-        //    #endregion
-
-        //    #region 按逆时针方向依次折弯
-        //    Queue<Vector3> vertexQueue = new Queue<Vector3>(bends.Vertexes);
-        //    for (int i = 0; i < vertexQueue.Count(); i++)
-        //    {
-        //        var sPt = vertexQueue.Dequeue();
-        //        var ePt = vertexQueue.Peek();
-        //        vertexQueue.Enqueue(sPt);
-        //        var line = GlobalInstance.BrepTools.MakeLine(sPt, ePt);
-        //        var face = baseShape;
-        //        var groupEdge = from m in bends.Bendings
-        //                        where m.Orientation == Math.Round(((ePt - sPt).Y >= 0 ? (ePt - sPt).AngleBetween(Vector3.UNIT_X) : (360 - (ePt - sPt).AngleBetween(Vector3.UNIT_X))), 3)
-        //                        orderby m.Index
-        //                        select m;
-        //        foreach (var bending in groupEdge)
-        //        {
-        //            if (face == null || line == null)
-        //            {
-        //                return;
-        //            }
-        //            if (face.GetShapeType() != EnumTopoShapeType.Topo_FACE || line.GetShapeType() != EnumTopoShapeType.Topo_EDGE)
-        //            {
-        //                break;
-        //            }
-        //            BendHelper helper = new BendHelper();
-        //            var temp = new Bending(bending);
-        //            temp.Length += temp.Radius * temp.Angle * Math.PI / 180;
-        //            temp.Angle = 0;
-        //            helper = BendUp(face, line, temp);
-        //            ElementId id = new ElementId(bending.Index);
-        //            SceneNode node = GlobalInstance.TopoShapeConvert.ToSceneNode(helper.Sweep, 0.1f);
-        //            node.SetId(id);
-        //            sceneMgr.AddNode(node);
-        //            face = helper.EdFace;
-        //            line = helper.EdLine;
-        //        }
-
-        //    }
-        //    #endregion
-
-        //    renderViewDraw.FitAll();
-        //    renderViewDraw.RequestDraw(EnumRenderHint.RH_LoadScene);
-
-        //}
-        //private static IEnumerable<BendingGroup> GetStepShapes(BendingGroup bends)
-        //{
-        //    BendingGroup group = new BendingGroup(bends);
-        //    List<Bending> temp = new List<Bending>(group.Bendings.OrderBy(m => m.Index).ToList());
-        //    foreach(var item in temp)
-        //    {
-        //        item.Length += item.Radius * item.Angle * Math.PI / 180;
-        //        item.Angle = 0;
-        //        group.Bendings = temp;
-        //        yield return group;
-        //    }
-        //}
-        //private int posOfStep = 0;
-        //private List<BendingGroup> stepBendings = new List<BendingGroup>();
-        //private void BtnNext_Click(object sender, EventArgs e)
-        //{
-        //    if (posOfStep <= 0)
-        //    {
-        //        return;
-        //    }
-        //    var item = stepBendings.ElementAt(--posOfStep);
-        //    DrawBendingGroup(item);
-        //}
-        //private void BtnLast_Click(object sender, EventArgs e)
-        //{
-        //    if (posOfStep >= stepBendings.Count())
-        //    {
-        //        return;
-        //    }
-        //    var item = stepBendings.ElementAt(posOfStep++);
-        //    DrawBendingGroup(item);
-        //}
-        //private void ReorderBendings(BendingGroup bends)
-        //{
-        //    var temp = bends.Bendings.OrderBy(m => m.Orientation).ThenBy(m => m.Index).ToList();
-        //    int i = 0;
-        //    foreach(var item in temp)
-        //    {
-        //        item.Index = i++;
-        //    }
-        //    bends.Bendings = temp;
-        //    dataManage.SetBendingGroup(bends);
-        //    dataManage.AcceptChanges();
-        //}
-
-        //private void BtnReorder_Click(object sender, EventArgs e)
-        //{
-        //    ReorderBendings(bendings);
-        //}
+        private void BtnUnfold_Click(object sender, EventArgs e)
+        {
+            posOfStep = 0;
+            stepBendings.Clear();
+            BendingGroup group = new BendingGroup(bendings);
+            stepBendings.Add(bendings);
+            foreach (var item in GetStepShapes(group))
+            {
+                if (stepBendings.Contains(item))
+                {
+                    break;
+                }
+                stepBendings.Add(new BendingGroup(item));
+            }
+            posOfStep = stepBendings.Count();
+            btnNext.Enabled = true;
+            btnLast.Enabled = true;
+            btnUnfold.Enabled = false;
+        }
+        private static IEnumerable<BendingGroup> GetStepShapes(BendingGroup bends)
+        {
+            BendingGroup group = new BendingGroup(bends);
+            List<Bending> temp = new List<Bending>(group.Bendings.OrderBy(m => m.Index).ToList());
+            foreach (var item in temp)
+            {
+                item.Length += item.Radius * item.Angle * Math.PI / 180;
+                item.Angle = 0;
+                group.Bendings = temp;
+                yield return group;
+            }
+        }
+        private int posOfStep = 0;
+        private List<BendingGroup> stepBendings = new List<BendingGroup>();
+        private void BtnNext_Click(object sender, EventArgs e)
+        {
+            if (posOfStep <= 0)
+            {
+                return;
+            }
+            var item = stepBendings.ElementAt(--posOfStep);
+            DrawBendings(item);
+        }
+        private void BtnLast_Click(object sender, EventArgs e)
+        {
+            if (posOfStep >= stepBendings.Count())
+            {
+                return;
+            }
+            var item = stepBendings.ElementAt(posOfStep++);
+            DrawBendings(item);
+        }
     }
 }
 

@@ -51,9 +51,14 @@
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.panel4 = new System.Windows.Forms.Panel();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.txtTheoLength = new System.Windows.Forms.TextBox();
+            this.txtActLength = new System.Windows.Forms.TextBox();
+            this.lblActLength = new System.Windows.Forms.Label();
+            this.lblTheoLength = new System.Windows.Forms.Label();
             this.btnDraw = new System.Windows.Forms.Button();
-            this.btnReorder = new System.Windows.Forms.Button();
             this.gbxVertex = new System.Windows.Forms.GroupBox();
+            this.cbbSecShape = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.txtR = new System.Windows.Forms.TextBox();
             this.txtThick = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -83,8 +88,6 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cbbSecShape = new System.Windows.Forms.ComboBox();
             this.toolStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -128,7 +131,7 @@
             this.toolStripDropDownButton1});
             this.toolStrip1.Location = new System.Drawing.Point(4, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(242, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(242, 27);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -138,7 +141,7 @@
             this.importBtn.Image = ((System.Drawing.Image)(resources.GetObject("importBtn.Image")));
             this.importBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.importBtn.Name = "importBtn";
-            this.importBtn.Size = new System.Drawing.Size(29, 28);
+            this.importBtn.Size = new System.Drawing.Size(29, 24);
             this.importBtn.Text = "Import";
             this.importBtn.Click += new System.EventHandler(this.ImportToolStripMenuItem_Click);
             // 
@@ -148,7 +151,7 @@
             this.mouseBtn.Image = ((System.Drawing.Image)(resources.GetObject("mouseBtn.Image")));
             this.mouseBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.mouseBtn.Name = "mouseBtn";
-            this.mouseBtn.Size = new System.Drawing.Size(29, 28);
+            this.mouseBtn.Size = new System.Drawing.Size(29, 24);
             this.mouseBtn.Text = "toolStripButton1";
             this.mouseBtn.Click += new System.EventHandler(this.MouseBtn_Click);
             // 
@@ -158,7 +161,7 @@
             this.moveBtn.Image = ((System.Drawing.Image)(resources.GetObject("moveBtn.Image")));
             this.moveBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.moveBtn.Name = "moveBtn";
-            this.moveBtn.Size = new System.Drawing.Size(29, 28);
+            this.moveBtn.Size = new System.Drawing.Size(29, 24);
             this.moveBtn.Text = "Move";
             this.moveBtn.Click += new System.EventHandler(this.PanToolStripMenuItem_Click);
             // 
@@ -168,14 +171,14 @@
             this.clearBtn.Image = ((System.Drawing.Image)(resources.GetObject("clearBtn.Image")));
             this.clearBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.clearBtn.Name = "clearBtn";
-            this.clearBtn.Size = new System.Drawing.Size(29, 28);
+            this.clearBtn.Size = new System.Drawing.Size(29, 24);
             this.clearBtn.Text = "Clear";
             this.clearBtn.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
             // moveNodeBtn
             // 
@@ -183,7 +186,7 @@
             this.moveNodeBtn.Image = ((System.Drawing.Image)(resources.GetObject("moveNodeBtn.Image")));
             this.moveNodeBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.moveNodeBtn.Name = "moveNodeBtn";
-            this.moveNodeBtn.Size = new System.Drawing.Size(55, 28);
+            this.moveNodeBtn.Size = new System.Drawing.Size(55, 24);
             this.moveNodeBtn.Text = "Move";
             this.moveNodeBtn.Click += new System.EventHandler(this.MoveNodeBtn_Click);
             // 
@@ -196,7 +199,7 @@
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(52, 28);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(52, 24);
             this.toolStripDropDownButton1.Text = "Pick";
             // 
             // singlePickToolStripMenuItem
@@ -219,7 +222,7 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.tabControl1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1362, 735);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1362, 739);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
@@ -239,7 +242,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1362, 735);
+            this.tabControl1.Size = new System.Drawing.Size(1362, 739);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -328,7 +331,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1354, 706);
+            this.tabPage2.Size = new System.Drawing.Size(1354, 710);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Unfold";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -348,7 +351,7 @@
             // 
             this.splitContainer3.Panel2.AutoScroll = true;
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer3.Size = new System.Drawing.Size(1348, 700);
+            this.splitContainer3.Size = new System.Drawing.Size(1348, 704);
             this.splitContainer3.SplitterDistance = 489;
             this.splitContainer3.SplitterWidth = 1;
             this.splitContainer3.TabIndex = 0;
@@ -358,7 +361,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(485, 696);
+            this.panel4.Size = new System.Drawing.Size(485, 700);
             this.panel4.TabIndex = 0;
             this.panel4.SizeChanged += new System.EventHandler(this.Panel4_SizeChanged);
             // 
@@ -372,8 +375,11 @@
             // splitContainer4.Panel1
             // 
             this.splitContainer4.Panel1.AutoScroll = true;
+            this.splitContainer4.Panel1.Controls.Add(this.txtTheoLength);
+            this.splitContainer4.Panel1.Controls.Add(this.txtActLength);
+            this.splitContainer4.Panel1.Controls.Add(this.lblActLength);
+            this.splitContainer4.Panel1.Controls.Add(this.lblTheoLength);
             this.splitContainer4.Panel1.Controls.Add(this.btnDraw);
-            this.splitContainer4.Panel1.Controls.Add(this.btnReorder);
             this.splitContainer4.Panel1.Controls.Add(this.gbxVertex);
             this.splitContainer4.Panel1.Controls.Add(this.btnExportXml);
             this.splitContainer4.Panel1.Controls.Add(this.btnReadXml2);
@@ -386,9 +392,45 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.dgvBending);
-            this.splitContainer4.Size = new System.Drawing.Size(854, 696);
-            this.splitContainer4.SplitterDistance = 339;
+            this.splitContainer4.Size = new System.Drawing.Size(854, 700);
+            this.splitContainer4.SplitterDistance = 340;
             this.splitContainer4.TabIndex = 20;
+            // 
+            // txtTheoLength
+            // 
+            this.txtTheoLength.Enabled = false;
+            this.txtTheoLength.Location = new System.Drawing.Point(400, 31);
+            this.txtTheoLength.Name = "txtTheoLength";
+            this.txtTheoLength.Size = new System.Drawing.Size(100, 25);
+            this.txtTheoLength.TabIndex = 23;
+            this.txtTheoLength.TabStop = false;
+            // 
+            // txtActLength
+            // 
+            this.txtActLength.Enabled = false;
+            this.txtActLength.Location = new System.Drawing.Point(400, 62);
+            this.txtActLength.Name = "txtActLength";
+            this.txtActLength.Size = new System.Drawing.Size(100, 25);
+            this.txtActLength.TabIndex = 24;
+            this.txtActLength.TabStop = false;
+            // 
+            // lblActLength
+            // 
+            this.lblActLength.AutoSize = true;
+            this.lblActLength.Location = new System.Drawing.Point(327, 65);
+            this.lblActLength.Name = "lblActLength";
+            this.lblActLength.Size = new System.Drawing.Size(67, 15);
+            this.lblActLength.TabIndex = 22;
+            this.lblActLength.Text = "实际长度";
+            // 
+            // lblTheoLength
+            // 
+            this.lblTheoLength.AutoSize = true;
+            this.lblTheoLength.Location = new System.Drawing.Point(327, 34);
+            this.lblTheoLength.Name = "lblTheoLength";
+            this.lblTheoLength.Size = new System.Drawing.Size(67, 15);
+            this.lblTheoLength.TabIndex = 21;
+            this.lblTheoLength.Text = "理论长度";
             // 
             // btnDraw
             // 
@@ -399,15 +441,6 @@
             this.btnDraw.Text = "Draw";
             this.btnDraw.UseVisualStyleBackColor = true;
             this.btnDraw.Click += new System.EventHandler(this.BtnDraw_Click);
-            // 
-            // btnReorder
-            // 
-            this.btnReorder.Location = new System.Drawing.Point(520, 55);
-            this.btnReorder.Name = "btnReorder";
-            this.btnReorder.Size = new System.Drawing.Size(75, 23);
-            this.btnReorder.TabIndex = 19;
-            this.btnReorder.Text = "Reorder";
-            this.btnReorder.UseVisualStyleBackColor = true;
             // 
             // gbxVertex
             // 
@@ -425,6 +458,23 @@
             this.gbxVertex.TabIndex = 17;
             this.gbxVertex.TabStop = false;
             this.gbxVertex.Text = "Section";
+            // 
+            // cbbSecShape
+            // 
+            this.cbbSecShape.FormattingEnabled = true;
+            this.cbbSecShape.Location = new System.Drawing.Point(85, 29);
+            this.cbbSecShape.Name = "cbbSecShape";
+            this.cbbSecShape.Size = new System.Drawing.Size(100, 23);
+            this.cbbSecShape.TabIndex = 18;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(4, 29);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(67, 15);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "截面形状";
             // 
             // txtR
             // 
@@ -448,7 +498,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 15);
             this.label4.TabIndex = 14;
-            this.label4.Text = "半径(R)";
+            this.label4.Text = "外径(R)";
             // 
             // btnConfirm
             // 
@@ -471,7 +521,7 @@
             // 
             // btnExportXml
             // 
-            this.btnExportXml.Location = new System.Drawing.Point(329, 55);
+            this.btnExportXml.Location = new System.Drawing.Point(340, 125);
             this.btnExportXml.Name = "btnExportXml";
             this.btnExportXml.Size = new System.Drawing.Size(75, 23);
             this.btnExportXml.TabIndex = 11;
@@ -481,7 +531,7 @@
             // 
             // btnReadXml2
             // 
-            this.btnReadXml2.Location = new System.Drawing.Point(421, 55);
+            this.btnReadXml2.Location = new System.Drawing.Point(421, 125);
             this.btnReadXml2.Name = "btnReadXml2";
             this.btnReadXml2.Size = new System.Drawing.Size(75, 23);
             this.btnReadXml2.TabIndex = 12;
@@ -647,24 +697,29 @@
             this.btnUnfold.TabIndex = 13;
             this.btnUnfold.Text = "Unfold";
             this.btnUnfold.UseVisualStyleBackColor = true;
+            this.btnUnfold.Click += new System.EventHandler(this.BtnUnfold_Click);
             // 
             // btnLast
             // 
+            this.btnLast.Enabled = false;
             this.btnLast.Location = new System.Drawing.Point(340, 255);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(75, 23);
             this.btnLast.TabIndex = 15;
             this.btnLast.Text = "<";
             this.btnLast.UseVisualStyleBackColor = true;
+            this.btnLast.Click += new System.EventHandler(this.BtnLast_Click);
             // 
             // btnNext
             // 
+            this.btnNext.Enabled = false;
             this.btnNext.Location = new System.Drawing.Point(502, 255);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 23);
             this.btnNext.TabIndex = 14;
             this.btnNext.Text = ">";
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.BtnNext_Click);
             // 
             // dgvBending
             // 
@@ -676,30 +731,13 @@
             this.dgvBending.Name = "dgvBending";
             this.dgvBending.RowHeadersWidth = 51;
             this.dgvBending.RowTemplate.Height = 27;
-            this.dgvBending.Size = new System.Drawing.Size(854, 353);
+            this.dgvBending.Size = new System.Drawing.Size(854, 356);
             this.dgvBending.TabIndex = 19;
             this.dgvBending.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvBending_CellValueChanged);
             // 
             // saveFileDialog1
             // 
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveFileDialog_FileOk);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(4, 29);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(67, 15);
-            this.label5.TabIndex = 17;
-            this.label5.Text = "截面形状";
-            // 
-            // cbbSecShape
-            // 
-            this.cbbSecShape.FormattingEnabled = true;
-            this.cbbSecShape.Location = new System.Drawing.Point(85, 29);
-            this.cbbSecShape.Name = "cbbSecShape";
-            this.cbbSecShape.Size = new System.Drawing.Size(100, 23);
-            this.cbbSecShape.TabIndex = 18;
             // 
             // TestForm
             // 
@@ -789,7 +827,6 @@
         private System.Windows.Forms.GroupBox gbxVertex;
         private System.Windows.Forms.DataGridView dgvBending;
         private System.Windows.Forms.SplitContainer splitContainer4;
-        private System.Windows.Forms.Button btnReorder;
         private System.Windows.Forms.TextBox txtThick;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
@@ -803,5 +840,9 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ComboBox cbbSecShape;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtTheoLength;
+        private System.Windows.Forms.TextBox txtActLength;
+        private System.Windows.Forms.Label lblActLength;
+        private System.Windows.Forms.Label lblTheoLength;
     }
 }
