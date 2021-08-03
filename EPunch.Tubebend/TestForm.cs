@@ -10,6 +10,7 @@ using AnyCAD.Platform;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace EPunch.Tubebend
 {
@@ -49,7 +50,6 @@ namespace EPunch.Tubebend
             panel4.Controls.Add(renderViewDraw);
 
             dgvBending.DataSource = dataManage.BendingSet.Tables[0];
-
 
             GlobalInstance.EventListener.OnChangeCursorEvent += OnChangeCursor;
             GlobalInstance.EventListener.OnSelectElementEvent += OnSelectElement;
@@ -458,6 +458,19 @@ namespace EPunch.Tubebend
             }
             var item = stepBendings.ElementAt(posOfStep++);
             DrawBendings(item);
+        }
+
+        private void btnEn_Click(object sender, EventArgs e)
+        {
+            var encrypted = Cryptography.Encrypt<RijndaelManaged>(txtTest.Text, "密码");
+            txtTest2.Text = encrypted;
+            MessageBox.Show(encrypted);
+        }
+
+        private void btnDe_Click(object sender, EventArgs e)
+        {
+            var decrypted = Cryptography.Decrypt<RijndaelManaged>(txtTest2.Text, "密码");
+            MessageBox.Show(decrypted);
         }
     }
 }
