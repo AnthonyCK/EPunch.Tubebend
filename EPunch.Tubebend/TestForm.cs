@@ -343,9 +343,9 @@ namespace EPunch.Tubebend
             }
         }
 
-        private Double TheoreticalLength(BendingGroup bendings)
+        private double TheoreticalLength(BendingGroup bendings)
         {
-            Double TLength = 0;
+            double TLength = 0;
             foreach (var bending in bendings.Bendings)
             {
                 TLength = TLength + bending.Length + bending.Angle * Math.PI * bending.Radius / 180;
@@ -413,7 +413,6 @@ namespace EPunch.Tubebend
             posOfStep = 0;
             stepBendings.Clear();
             BendingGroup group = new BendingGroup(bendings);
-            stepBendings.Add(bendings);
             foreach (var item in GetStepShapes(group))
             {
                 if (stepBendings.Contains(item))
@@ -422,21 +421,33 @@ namespace EPunch.Tubebend
                 }
                 stepBendings.Add(new BendingGroup(item));
             }
+            stepBendings.Add(bendings);
             posOfStep = stepBendings.Count();
             btnNext.Enabled = true;
             btnLast.Enabled = true;
             btnUnfold.Enabled = false;
         }
-        private static IEnumerable<BendingGroup> GetStepShapes(BendingGroup bends)
+        private IEnumerable<BendingGroup> GetStepShapes(BendingGroup bends)
         {
-            BendingGroup group = new BendingGroup(bends);
-            List<Bending> temp = new List<Bending>(group.Bendings.OrderBy(m => m.Index).ToList());
+            BendingGroup group = new BendingGroup() { SecShape = bends.SecShape, Thickness = bends.Thickness };
+            List<Bending> temp = new List<Bending>(bends.Bendings.OrderBy(m => m.Index).ToList());
+            Bending bending = new Bending()
+            {
+                Angle = 0,
+                Direction = 0,
+                Length = TheoreticalLength(bends),
+                Radius = 0,
+                Index = 0
+            };
+            group.AddBending(bending);
             foreach (var item in temp)
             {
-                item.Length += item.Radius * item.Angle * Math.PI / 180;
-                item.Angle = 0;
-                group.Bendings = temp;
                 yield return group;
+                group.DelBending(bending);
+                group.AddBending(item);
+                bending.Index += 1;
+                bending.Length -= item.Length + item.Radius * item.Angle * Math.PI / 180;
+                group.AddBending(bending);
             }
         }
         private int posOfStep = 0;
