@@ -22,7 +22,8 @@ namespace EPunch.Tubebend
         private AnyCAD.Presentation.RenderWindow3d renderViewXZ;
         private AnyCAD.Presentation.RenderWindow3d renderViewYZ;
         private AnyCAD.Presentation.RenderWindow3d renderViewDraw;
-        private readonly int shapeId = 1000;
+        private readonly int shapeId = 10;
+        private readonly int mouldId = 20;
         private DataManage dataManage = new DataManage();
         public TestForm()
         {            
@@ -73,7 +74,7 @@ namespace EPunch.Tubebend
             if (!args.IsHighlightMode())
             {
                 SelectedShapeQuery query = new SelectedShapeQuery();
-                renderView.QuerySelection(query);
+                renderViewDraw.QuerySelection(query);
                 var shape = query.GetGeometry();
                 if (shape != null)
                 {
@@ -226,7 +227,7 @@ namespace EPunch.Tubebend
             renderView.RenderTimer.Enabled = false;
             if (shape != null)
             {
-                renderView.ShowGeometry(shape, shapeId);
+                renderView.ShowGeometry(shape, 1000);
             }
             renderView.RenderTimer.Enabled = true;
             renderView.FitAll();
@@ -329,17 +330,37 @@ namespace EPunch.Tubebend
                 TopoShape centerline = CenterlineAssembly(bendings);
                 TopoShape sweep = GlobalInstance.BrepTools.Sweep(bendings.SecShape, centerline, false);
                 sweep = GlobalInstance.BrepTools.MakeThicken(sweep, bendings.Thickness, 0);
+                InterferenceDetection(bendings, mould);
                 #region 渲染
                 renderViewDraw.ClearScene();
                 SceneManager sceneMgr = renderViewDraw.SceneManager;
                 SceneNode rootNode = GlobalInstance.TopoShapeConvert.ToSceneNode(sweep, 0.1f);
                 if (rootNode != null)
                 {
+                    rootNode.SetId(new ElementId(shapeId));
                     sceneMgr.AddNode(rootNode);
                 }
                 renderViewDraw.FitAll();
                 renderViewDraw.RequestDraw(EnumRenderHint.RH_LoadScene);
                 #endregion
+            }
+        }
+        /// <summary>
+        /// 干涉检测
+        /// </summary>
+        /// <param name="bendings">弯管</param>
+        /// <param name="parts">机床</param>
+        private void InterferenceDetection(BendingGroup bendings, TopoShape parts)
+        {
+            if (bendings.SecShape != null && bendings.Bendings.Count() != 0 && !parts.IsNullShape())
+            {
+                TopoShape centerline = CenterlineAssembly(bendings);
+                TopoShape sweep = GlobalInstance.BrepTools.Sweep(bendings.SecShape, centerline, false);
+                var com = GlobalInstance.TopoShapeConvert.ToSceneNode(GlobalInstance.BrepTools.BooleanCommon(sweep, parts), 0.1f);
+                if (com != null)
+                {
+                    MessageBox.Show("干涉！");
+                }
             }
         }
 
@@ -483,6 +504,25 @@ namespace EPunch.Tubebend
             var decrypted = Cryptography.Decrypt<RijndaelManaged>(txtTest2.Text, "密码");
             MessageBox.Show(decrypted);
         }
+
+        private void btnCommon1_Click(object sender, EventArgs e)
+        {
+            TopoShape cyl = GlobalInstance.BrepTools.MakeCylinder(new Vector3(100,0,0), Vector3.UNIT_Z, 10, 10, 0);
+            #region 渲染
+            SceneManager sceneMgr = renderViewDraw.SceneManager;
+            SceneNode rootNode = GlobalInstance.TopoShapeConvert.ToSceneNode(cyl, 0.1f);
+            rootNode.SetId(new ElementId(mouldId));
+            if (rootNode != null)
+            {
+                sceneMgr.AddNode(rootNode);
+            }
+            renderViewDraw.FitAll();
+            renderViewDraw.RequestDraw(EnumRenderHint.RH_LoadScene);
+            mould = cyl;
+            #endregion
+
+        }
+        private TopoShape mould = new TopoShape();
     }
 }
 

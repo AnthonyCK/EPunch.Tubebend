@@ -51,6 +51,10 @@
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.panel4 = new System.Windows.Forms.Panel();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.txtTest2 = new System.Windows.Forms.TextBox();
+            this.btnDe = new System.Windows.Forms.Button();
+            this.btnEn = new System.Windows.Forms.Button();
+            this.txtTest = new System.Windows.Forms.TextBox();
             this.txtTheoLength = new System.Windows.Forms.TextBox();
             this.txtActLength = new System.Windows.Forms.TextBox();
             this.lblActLength = new System.Windows.Forms.Label();
@@ -88,10 +92,8 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.txtTest = new System.Windows.Forms.TextBox();
-            this.btnEn = new System.Windows.Forms.Button();
-            this.btnDe = new System.Windows.Forms.Button();
-            this.txtTest2 = new System.Windows.Forms.TextBox();
+            this.btnCommon1 = new System.Windows.Forms.Button();
+            this.btnCommon2 = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -379,6 +381,8 @@
             // splitContainer4.Panel1
             // 
             this.splitContainer4.Panel1.AutoScroll = true;
+            this.splitContainer4.Panel1.Controls.Add(this.btnCommon2);
+            this.splitContainer4.Panel1.Controls.Add(this.btnCommon1);
             this.splitContainer4.Panel1.Controls.Add(this.txtTest2);
             this.splitContainer4.Panel1.Controls.Add(this.btnDe);
             this.splitContainer4.Panel1.Controls.Add(this.btnEn);
@@ -403,6 +407,42 @@
             this.splitContainer4.Size = new System.Drawing.Size(854, 696);
             this.splitContainer4.SplitterDistance = 338;
             this.splitContainer4.TabIndex = 20;
+            // 
+            // txtTest2
+            // 
+            this.txtTest2.Location = new System.Drawing.Point(340, 185);
+            this.txtTest2.Name = "txtTest2";
+            this.txtTest2.Size = new System.Drawing.Size(100, 25);
+            this.txtTest2.TabIndex = 28;
+            this.txtTest2.TabStop = false;
+            // 
+            // btnDe
+            // 
+            this.btnDe.Location = new System.Drawing.Point(446, 185);
+            this.btnDe.Name = "btnDe";
+            this.btnDe.Size = new System.Drawing.Size(75, 23);
+            this.btnDe.TabIndex = 27;
+            this.btnDe.Text = "解密";
+            this.btnDe.UseVisualStyleBackColor = true;
+            this.btnDe.Click += new System.EventHandler(this.btnDe_Click);
+            // 
+            // btnEn
+            // 
+            this.btnEn.Location = new System.Drawing.Point(446, 156);
+            this.btnEn.Name = "btnEn";
+            this.btnEn.Size = new System.Drawing.Size(75, 23);
+            this.btnEn.TabIndex = 26;
+            this.btnEn.Text = "加密";
+            this.btnEn.UseVisualStyleBackColor = true;
+            this.btnEn.Click += new System.EventHandler(this.btnEn_Click);
+            // 
+            // txtTest
+            // 
+            this.txtTest.Location = new System.Drawing.Point(340, 154);
+            this.txtTest.Name = "txtTest";
+            this.txtTest.Size = new System.Drawing.Size(100, 25);
+            this.txtTest.TabIndex = 25;
+            this.txtTest.TabStop = false;
             // 
             // txtTheoLength
             // 
@@ -747,41 +787,25 @@
             // 
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveFileDialog_FileOk);
             // 
-            // txtTest
+            // btnCommon1
             // 
-            this.txtTest.Location = new System.Drawing.Point(340, 154);
-            this.txtTest.Name = "txtTest";
-            this.txtTest.Size = new System.Drawing.Size(100, 25);
-            this.txtTest.TabIndex = 25;
-            this.txtTest.TabStop = false;
+            this.btnCommon1.Location = new System.Drawing.Point(340, 284);
+            this.btnCommon1.Name = "btnCommon1";
+            this.btnCommon1.Size = new System.Drawing.Size(75, 23);
+            this.btnCommon1.TabIndex = 29;
+            this.btnCommon1.Text = "Common1";
+            this.btnCommon1.UseVisualStyleBackColor = true;
+            this.btnCommon1.Click += new System.EventHandler(this.btnCommon1_Click);
             // 
-            // btnEn
+            // btnCommon2
             // 
-            this.btnEn.Location = new System.Drawing.Point(446, 156);
-            this.btnEn.Name = "btnEn";
-            this.btnEn.Size = new System.Drawing.Size(75, 23);
-            this.btnEn.TabIndex = 26;
-            this.btnEn.Text = "加密";
-            this.btnEn.UseVisualStyleBackColor = true;
-            this.btnEn.Click += new System.EventHandler(this.btnEn_Click);
-            // 
-            // btnDe
-            // 
-            this.btnDe.Location = new System.Drawing.Point(446, 185);
-            this.btnDe.Name = "btnDe";
-            this.btnDe.Size = new System.Drawing.Size(75, 23);
-            this.btnDe.TabIndex = 27;
-            this.btnDe.Text = "解密";
-            this.btnDe.UseVisualStyleBackColor = true;
-            this.btnDe.Click += new System.EventHandler(this.btnDe_Click);
-            // 
-            // txtTest2
-            // 
-            this.txtTest2.Location = new System.Drawing.Point(340, 185);
-            this.txtTest2.Name = "txtTest2";
-            this.txtTest2.Size = new System.Drawing.Size(100, 25);
-            this.txtTest2.TabIndex = 28;
-            this.txtTest2.TabStop = false;
+            this.btnCommon2.Location = new System.Drawing.Point(421, 284);
+            this.btnCommon2.Name = "btnCommon2";
+            this.btnCommon2.Size = new System.Drawing.Size(75, 23);
+            this.btnCommon2.TabIndex = 30;
+            this.btnCommon2.Text = "Common2";
+            this.btnCommon2.UseVisualStyleBackColor = true;
+            this.btnCommon2.Click += new System.EventHandler(this.btnCommon2_Click);
             // 
             // TestForm
             // 
@@ -892,5 +916,7 @@
         private System.Windows.Forms.Button btnDe;
         private System.Windows.Forms.Button btnEn;
         private System.Windows.Forms.TextBox txtTest;
+        private System.Windows.Forms.Button btnCommon1;
+        private System.Windows.Forms.Button btnCommon2;
     }
 }
