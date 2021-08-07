@@ -51,6 +51,7 @@
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.panel4 = new System.Windows.Forms.Panel();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.btnCommon1 = new System.Windows.Forms.Button();
             this.txtTest2 = new System.Windows.Forms.TextBox();
             this.btnDe = new System.Windows.Forms.Button();
             this.btnEn = new System.Windows.Forms.Button();
@@ -92,8 +93,6 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.btnCommon1 = new System.Windows.Forms.Button();
-            this.btnCommon2 = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -137,7 +136,7 @@
             this.toolStripDropDownButton1});
             this.toolStrip1.Location = new System.Drawing.Point(4, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(242, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(242, 27);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -147,7 +146,7 @@
             this.importBtn.Image = ((System.Drawing.Image)(resources.GetObject("importBtn.Image")));
             this.importBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.importBtn.Name = "importBtn";
-            this.importBtn.Size = new System.Drawing.Size(29, 28);
+            this.importBtn.Size = new System.Drawing.Size(29, 24);
             this.importBtn.Text = "Import";
             this.importBtn.Click += new System.EventHandler(this.ImportToolStripMenuItem_Click);
             // 
@@ -157,7 +156,7 @@
             this.mouseBtn.Image = ((System.Drawing.Image)(resources.GetObject("mouseBtn.Image")));
             this.mouseBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.mouseBtn.Name = "mouseBtn";
-            this.mouseBtn.Size = new System.Drawing.Size(29, 28);
+            this.mouseBtn.Size = new System.Drawing.Size(29, 24);
             this.mouseBtn.Text = "toolStripButton1";
             this.mouseBtn.Click += new System.EventHandler(this.MouseBtn_Click);
             // 
@@ -167,7 +166,7 @@
             this.moveBtn.Image = ((System.Drawing.Image)(resources.GetObject("moveBtn.Image")));
             this.moveBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.moveBtn.Name = "moveBtn";
-            this.moveBtn.Size = new System.Drawing.Size(29, 28);
+            this.moveBtn.Size = new System.Drawing.Size(29, 24);
             this.moveBtn.Text = "Move";
             this.moveBtn.Click += new System.EventHandler(this.PanToolStripMenuItem_Click);
             // 
@@ -177,14 +176,14 @@
             this.clearBtn.Image = ((System.Drawing.Image)(resources.GetObject("clearBtn.Image")));
             this.clearBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.clearBtn.Name = "clearBtn";
-            this.clearBtn.Size = new System.Drawing.Size(29, 28);
+            this.clearBtn.Size = new System.Drawing.Size(29, 24);
             this.clearBtn.Text = "Clear";
             this.clearBtn.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
             // moveNodeBtn
             // 
@@ -192,7 +191,7 @@
             this.moveNodeBtn.Image = ((System.Drawing.Image)(resources.GetObject("moveNodeBtn.Image")));
             this.moveNodeBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.moveNodeBtn.Name = "moveNodeBtn";
-            this.moveNodeBtn.Size = new System.Drawing.Size(55, 28);
+            this.moveNodeBtn.Size = new System.Drawing.Size(55, 24);
             this.moveNodeBtn.Text = "Move";
             this.moveNodeBtn.Click += new System.EventHandler(this.MoveNodeBtn_Click);
             // 
@@ -205,7 +204,7 @@
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(52, 28);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(52, 24);
             this.toolStripDropDownButton1.Text = "Pick";
             // 
             // singlePickToolStripMenuItem
@@ -228,7 +227,7 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.tabControl1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1362, 735);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1362, 739);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
@@ -248,7 +247,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1362, 735);
+            this.tabControl1.Size = new System.Drawing.Size(1362, 739);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -337,7 +336,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1354, 706);
+            this.tabPage2.Size = new System.Drawing.Size(1354, 710);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Unfold";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -357,7 +356,7 @@
             // 
             this.splitContainer3.Panel2.AutoScroll = true;
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer3.Size = new System.Drawing.Size(1348, 700);
+            this.splitContainer3.Size = new System.Drawing.Size(1348, 704);
             this.splitContainer3.SplitterDistance = 489;
             this.splitContainer3.SplitterWidth = 1;
             this.splitContainer3.TabIndex = 0;
@@ -367,7 +366,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(485, 696);
+            this.panel4.Size = new System.Drawing.Size(485, 700);
             this.panel4.TabIndex = 0;
             this.panel4.SizeChanged += new System.EventHandler(this.Panel4_SizeChanged);
             // 
@@ -381,7 +380,6 @@
             // splitContainer4.Panel1
             // 
             this.splitContainer4.Panel1.AutoScroll = true;
-            this.splitContainer4.Panel1.Controls.Add(this.btnCommon2);
             this.splitContainer4.Panel1.Controls.Add(this.btnCommon1);
             this.splitContainer4.Panel1.Controls.Add(this.txtTest2);
             this.splitContainer4.Panel1.Controls.Add(this.btnDe);
@@ -404,9 +402,19 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.dgvBending);
-            this.splitContainer4.Size = new System.Drawing.Size(854, 696);
-            this.splitContainer4.SplitterDistance = 338;
+            this.splitContainer4.Size = new System.Drawing.Size(854, 700);
+            this.splitContainer4.SplitterDistance = 339;
             this.splitContainer4.TabIndex = 20;
+            // 
+            // btnCommon1
+            // 
+            this.btnCommon1.Location = new System.Drawing.Point(340, 284);
+            this.btnCommon1.Name = "btnCommon1";
+            this.btnCommon1.Size = new System.Drawing.Size(75, 23);
+            this.btnCommon1.TabIndex = 29;
+            this.btnCommon1.Text = "Common1";
+            this.btnCommon1.UseVisualStyleBackColor = true;
+            this.btnCommon1.Click += new System.EventHandler(this.btnCommon1_Click);
             // 
             // txtTest2
             // 
@@ -779,33 +787,13 @@
             this.dgvBending.Name = "dgvBending";
             this.dgvBending.RowHeadersWidth = 51;
             this.dgvBending.RowTemplate.Height = 27;
-            this.dgvBending.Size = new System.Drawing.Size(854, 354);
+            this.dgvBending.Size = new System.Drawing.Size(854, 357);
             this.dgvBending.TabIndex = 19;
             this.dgvBending.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvBending_CellValueChanged);
             // 
             // saveFileDialog1
             // 
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveFileDialog_FileOk);
-            // 
-            // btnCommon1
-            // 
-            this.btnCommon1.Location = new System.Drawing.Point(340, 284);
-            this.btnCommon1.Name = "btnCommon1";
-            this.btnCommon1.Size = new System.Drawing.Size(75, 23);
-            this.btnCommon1.TabIndex = 29;
-            this.btnCommon1.Text = "Common1";
-            this.btnCommon1.UseVisualStyleBackColor = true;
-            this.btnCommon1.Click += new System.EventHandler(this.btnCommon1_Click);
-            // 
-            // btnCommon2
-            // 
-            this.btnCommon2.Location = new System.Drawing.Point(421, 284);
-            this.btnCommon2.Name = "btnCommon2";
-            this.btnCommon2.Size = new System.Drawing.Size(75, 23);
-            this.btnCommon2.TabIndex = 30;
-            this.btnCommon2.Text = "Common2";
-            this.btnCommon2.UseVisualStyleBackColor = true;
-            this.btnCommon2.Click += new System.EventHandler(this.btnCommon2_Click);
             // 
             // TestForm
             // 
@@ -917,6 +905,5 @@
         private System.Windows.Forms.Button btnEn;
         private System.Windows.Forms.TextBox txtTest;
         private System.Windows.Forms.Button btnCommon1;
-        private System.Windows.Forms.Button btnCommon2;
     }
 }
