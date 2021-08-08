@@ -11,19 +11,14 @@ using System.Xml.Serialization;
 
 namespace EPunch.Tubebend
 {
-    public class BendHelper
-    {
-        public TopoShape Sweep;
-        public TopoShape CenterLine;
-    }
     public class Bending
     {
         [XmlAttribute]
-        public int Index;
-        public double Direction;
-        public double Angle;
-        public double Radius;
-        public double Length;
+        public int Index { get; set; }
+        public double Direction { get; set; }
+        public double Angle { get; set; }
+        public double Radius { get; set; }
+        public double Length { get; set; }
 
         public Bending() { }
         public Bending(Bending previousB)

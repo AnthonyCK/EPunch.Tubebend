@@ -56,6 +56,8 @@ namespace EPunch.Tubebend
             GlobalInstance.EventListener.OnSelectElementEvent += OnSelectElement;
 
             dataManage.DataChange += new DataManage.DataChangeHandler(DataManage_DataChange);
+            //animation.AnimationStop += new Animation.AnimationHandler();
+            
         }
 
         #region Basic Setup
@@ -325,7 +327,7 @@ namespace EPunch.Tubebend
         }
         private void DrawBendings(BendingGroup bendings)
         {
-            if (bendings.SecShape != null && bendings.Bendings.Count() != 0)
+            if (bendings.SecShape != null && bendings.Bendings.Count() != 0 && !bendings.SecShape.IsNullShape())
             {
                 TopoShape centerline = CenterlineAssembly(bendings);
                 TopoShape sweep = GlobalInstance.BrepTools.Sweep(bendings.SecShape, centerline, false);
@@ -340,7 +342,6 @@ namespace EPunch.Tubebend
                     rootNode.SetId(new ElementId(shapeId));
                     sceneMgr.AddNode(rootNode);
                 }
-                renderViewDraw.FitAll();
                 renderViewDraw.RequestDraw(EnumRenderHint.RH_LoadScene);
                 #endregion
             }
@@ -421,14 +422,179 @@ namespace EPunch.Tubebend
             ExportXml.GenerateXml(bendings, saveFileDialog1.FileName);
         }
 
-        //private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
-        //{
-        //    var file = ExportXml.ReadXml(openFileDialog1.FileName);
-        //    bendings.SetBendingGroup(file);
-        //    dataManage.SetBendingGroup(file);
-        //    dataManage.AcceptChanges();
-        //    DrawBendingGroup(bendings);
-        //}
+        private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            var file = ExportXml.ReadXml(openFileDialog1.FileName);
+            bendings.SetBendingGroup(file);
+            dataManage.SetBendingGroup(file);
+            dataManage.AcceptChanges();
+        }
+
+
+        #region 加密
+        private void btnEn_Click(object sender, EventArgs e)
+        {
+            var encrypted = Cryptography.Encrypt<RijndaelManaged>(txtTest.Text, "密码");
+            txtTest2.Text = encrypted;
+            MessageBox.Show(encrypted);
+        }
+
+        private void btnDe_Click(object sender, EventArgs e)
+        {
+            var decrypted = Cryptography.Decrypt<RijndaelManaged>(txtTest2.Text, "密码");
+            MessageBox.Show(decrypted);
+        } 
+        #endregion
+
+        private void BtnCommon1_Click(object sender, EventArgs e)
+        {
+            TopoShape cyl = GlobalInstance.BrepTools.MakeCylinder(new Vector3(100,0,0), Vector3.UNIT_Z, 10, 10, 0);
+            #region 渲染
+            SceneManager sceneMgr = renderViewDraw.SceneManager;
+            SceneNode rootNode = GlobalInstance.TopoShapeConvert.ToSceneNode(cyl, 0.1f);
+            rootNode.SetId(new ElementId(mouldId));
+            if (rootNode != null)
+            {
+                sceneMgr.AddNode(rootNode);
+            }
+            renderViewDraw.FitAll();
+            renderViewDraw.RequestDraw(EnumRenderHint.RH_LoadScene);
+            mould = cyl;
+            #endregion
+
+        }
+        private TopoShape mould = new TopoShape();
+
+
+        #region 动画
+        Animation animation = new Animation();
+        BendingGroup next = new BendingGroup();
+        BendingGroup current = new BendingGroup();
+        private void AnimationOn()
+        {
+            //订阅动画事件
+            this.renderViewDraw.RenderTick += new AnyCAD.Presentation.RenderEventHandler(TestForm_RenderTick);
+            //绘制模型
+            TopoShape centerline = CenterlineAssembly(current);
+            TopoShape sweep = GlobalInstance.BrepTools.Sweep(current.SecShape, centerline, false);
+            sweep = GlobalInstance.BrepTools.MakeThicken(sweep, current.Thickness, 0);
+            //初始化参数
+            animation.m_Object = GlobalInstance.TopoShapeConvert.ToSceneNode(sweep, 0.1f);
+            animation.DistanceX = -current.Bendings.Last().Length;
+            animation.AngleD = 0;
+            animation.AngleR = 0;
+            Matrix4 trf = GlobalInstance.MatrixBuilder.MakeTranslate(new Vector3(animation.DistanceX,0,0));
+            animation.m_Object.SetTransform(trf);
+
+            renderViewDraw.ClearScene();
+            renderViewDraw.SceneManager.AddNode(animation.m_Object);
+            renderViewDraw.RequestDraw();
+        }
+        private void AnimationOff()
+        {
+            this.renderViewDraw.RenderTick -= new AnyCAD.Presentation.RenderEventHandler(TestForm_RenderTick);
+        }
+        private void TestForm_RenderTick()
+        {
+            var ani = animation;
+            BendingGroup nextShape = new BendingGroup(next);
+            BendingGroup currentShape = new BendingGroup(current);
+            Bending bending;
+            if(posOfStep == stepBendings.Count - 1)
+            {
+                bending = nextShape.Bendings.ElementAt(nextShape.Bendings.Count - 1);
+            }
+            else
+            {
+                bending = nextShape.Bendings.ElementAt(nextShape.Bendings.Count - 2);
+            }
+
+            switch (ani.Step)
+            {
+                case 0: //进料
+                    if (ani.DistanceX + currentShape.Bendings.Last().Length >= bending.Length)
+                    {
+                        ani.Step = 1;
+                        ani.DistanceX = bending.Length - currentShape.Bendings.Last().Length;
+                        if (bending.Direction >= 0)
+                        {
+                            ani.DSpeed = Math.Abs(ani.DSpeed);
+                        }
+                        else
+                        {
+                            ani.DSpeed = -Math.Abs(ani.DSpeed);
+                        }
+                        break;
+                    }
+                    MoveX(ani);
+                    break;
+                case 1: //转料
+                    if (Math.Abs(ani.AngleD - bending.Direction) <= 0.1f)
+                    {
+                        ani.Step = 2;
+                        break;
+                    }
+                    RotateD(ani);
+                    break;
+                case 2: //折弯
+                    if (ani.AngleR >= bending.Angle)
+                    {
+                        TopoShape centerline = CenterlineAssembly(nextShape);
+                        TopoShape sweep = GlobalInstance.BrepTools.Sweep(nextShape.SecShape, centerline, false);
+                        sweep = GlobalInstance.BrepTools.MakeThicken(sweep, nextShape.Thickness, 0);
+                        SceneNode node = GlobalInstance.TopoShapeConvert.ToSceneNode(sweep, 0.1f);
+                        Matrix4 trf1;
+                        if (posOfStep == stepBendings.Count - 1)
+                        {
+                            trf1 = GlobalInstance.MatrixBuilder.MakeTranslate(new Vector3(0, 0, 0));
+                        }
+                        else
+                        {
+                            trf1 = GlobalInstance.MatrixBuilder.MakeTranslate(new Vector3(-nextShape.Bendings.Last().Length, 0, 0));
+                        }
+                        node.SetTransform(trf1);
+                        ani.m_Object = node;
+                        ani.Step = 0;
+                        AnimationOff();
+                        break;
+                    }
+                    BendR(ani, nextShape, bending);
+                    break;
+                default:
+                    break;
+            }
+            renderViewDraw.ClearScene();
+            renderViewDraw.SceneManager.AddNode(ani.m_Object);
+            renderViewDraw.RequestDraw();
+        }
+        private void MoveX(Animation ani) 
+        {
+            ani.DistanceX += ani.XSpeed * ani.TimerOfObject;
+            Matrix4 trf = GlobalInstance.MatrixBuilder.MakeTranslate(new Vector3(ani.DistanceX, 0, 0));
+            ani.m_Object.SetTransform(trf);
+        }
+        private void RotateD(Animation ani) 
+        {
+            ani.AngleD += ani.DSpeed * ani.TimerOfObject;
+            Matrix4 trf1 = GlobalInstance.MatrixBuilder.MakeRotation(ani.AngleD, Vector3.UNIT_X);   //旋转矩阵
+            Matrix4 trf2 = GlobalInstance.MatrixBuilder.MakeTranslate(new Vector3(ani.DistanceX, 0, 0));    //平移矩阵
+            Matrix4 trf = GlobalInstance.MatrixBuilder.Multiply(trf2, trf1);    //先旋转后平移
+            ani.m_Object.SetTransform(trf);
+        }
+        private void BendR(Animation ani, BendingGroup next, Bending bending) 
+        {
+            ani.AngleR += ani.RSpeed * ani.TimerOfObject;
+            ani.DistanceX += ani.RSpeed * ani.TimerOfObject * bending.Radius * Math.PI / 180;
+            bending.Angle = ani.AngleR;
+            next.Bendings.Last().Length = -ani.DistanceX;
+            TopoShape centerline = CenterlineAssembly(next);
+            TopoShape sweep = GlobalInstance.BrepTools.Sweep(next.SecShape, centerline, false);
+            sweep = GlobalInstance.BrepTools.MakeThicken(sweep, next.Thickness, 0);
+            SceneNode node = GlobalInstance.TopoShapeConvert.ToSceneNode(sweep, 0.1f);
+            Matrix4 trf = GlobalInstance.MatrixBuilder.MakeTranslate(new Vector3(ani.DistanceX, 0, 0));
+            node.SetTransform(trf);
+            ani.m_Object = node;
+        }
         private void BtnUnfold_Click(object sender, EventArgs e)
         {
             posOfStep = 0;
@@ -443,10 +609,12 @@ namespace EPunch.Tubebend
                 stepBendings.Add(new BendingGroup(item));
             }
             stepBendings.Add(bendings);
-            posOfStep = stepBendings.Count();
             btnNext.Enabled = true;
             btnLast.Enabled = true;
             btnUnfold.Enabled = false;
+
+            var first = stepBendings.ElementAt(posOfStep);
+            DrawBendings(first);
         }
         private IEnumerable<BendingGroup> GetStepShapes(BendingGroup bends)
         {
@@ -473,7 +641,7 @@ namespace EPunch.Tubebend
         }
         private int posOfStep = 0;
         private List<BendingGroup> stepBendings = new List<BendingGroup>();
-        private void BtnNext_Click(object sender, EventArgs e)
+        private void BtnLast_Click(object sender, EventArgs e)
         {
             if (posOfStep <= 0)
             {
@@ -482,47 +650,26 @@ namespace EPunch.Tubebend
             var item = stepBendings.ElementAt(--posOfStep);
             DrawBendings(item);
         }
-        private void BtnLast_Click(object sender, EventArgs e)
+        private void BtnNext_Click(object sender, EventArgs e)
         {
-            if (posOfStep >= stepBendings.Count())
+            if (posOfStep+1 >= stepBendings.Count())
             {
                 return;
             }
-            var item = stepBendings.ElementAt(posOfStep++);
-            DrawBendings(item);
-        }
+            var currentShape = stepBendings.ElementAt(posOfStep);
+            var nextShape = stepBendings.ElementAt(++posOfStep);
+            next = nextShape;
+            current = currentShape;
+            AnimationOn();
 
-        private void btnEn_Click(object sender, EventArgs e)
-        {
-            var encrypted = Cryptography.Encrypt<RijndaelManaged>(txtTest.Text, "密码");
-            txtTest2.Text = encrypted;
-            MessageBox.Show(encrypted);
         }
+        #endregion
 
-        private void btnDe_Click(object sender, EventArgs e)
+        private void BtnFitAll_Click(object sender, EventArgs e)
         {
-            var decrypted = Cryptography.Decrypt<RijndaelManaged>(txtTest2.Text, "密码");
-            MessageBox.Show(decrypted);
-        }
-
-        private void btnCommon1_Click(object sender, EventArgs e)
-        {
-            TopoShape cyl = GlobalInstance.BrepTools.MakeCylinder(new Vector3(100,0,0), Vector3.UNIT_Z, 10, 10, 0);
-            #region 渲染
-            SceneManager sceneMgr = renderViewDraw.SceneManager;
-            SceneNode rootNode = GlobalInstance.TopoShapeConvert.ToSceneNode(cyl, 0.1f);
-            rootNode.SetId(new ElementId(mouldId));
-            if (rootNode != null)
-            {
-                sceneMgr.AddNode(rootNode);
-            }
             renderViewDraw.FitAll();
             renderViewDraw.RequestDraw(EnumRenderHint.RH_LoadScene);
-            mould = cyl;
-            #endregion
-
         }
-        private TopoShape mould = new TopoShape();
     }
 }
 

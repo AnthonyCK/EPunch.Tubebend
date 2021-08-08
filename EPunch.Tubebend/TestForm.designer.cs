@@ -51,6 +51,7 @@
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.panel4 = new System.Windows.Forms.Panel();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.btnAnimation = new System.Windows.Forms.Button();
             this.btnCommon1 = new System.Windows.Forms.Button();
             this.txtTest2 = new System.Windows.Forms.TextBox();
             this.btnDe = new System.Windows.Forms.Button();
@@ -93,6 +94,7 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.btnFitAll = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -133,10 +135,11 @@
             this.clearBtn,
             this.toolStripSeparator1,
             this.moveNodeBtn,
-            this.toolStripDropDownButton1});
+            this.toolStripDropDownButton1,
+            this.btnFitAll});
             this.toolStrip1.Location = new System.Drawing.Point(4, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(242, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(271, 27);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -380,6 +383,7 @@
             // splitContainer4.Panel1
             // 
             this.splitContainer4.Panel1.AutoScroll = true;
+            this.splitContainer4.Panel1.Controls.Add(this.btnAnimation);
             this.splitContainer4.Panel1.Controls.Add(this.btnCommon1);
             this.splitContainer4.Panel1.Controls.Add(this.txtTest2);
             this.splitContainer4.Panel1.Controls.Add(this.btnDe);
@@ -403,8 +407,17 @@
             // 
             this.splitContainer4.Panel2.Controls.Add(this.dgvBending);
             this.splitContainer4.Size = new System.Drawing.Size(854, 700);
-            this.splitContainer4.SplitterDistance = 339;
+            this.splitContainer4.SplitterDistance = 338;
             this.splitContainer4.TabIndex = 20;
+            // 
+            // btnAnimation
+            // 
+            this.btnAnimation.Location = new System.Drawing.Point(421, 284);
+            this.btnAnimation.Name = "btnAnimation";
+            this.btnAnimation.Size = new System.Drawing.Size(75, 23);
+            this.btnAnimation.TabIndex = 30;
+            this.btnAnimation.Text = "Animate";
+            this.btnAnimation.UseVisualStyleBackColor = true;
             // 
             // btnCommon1
             // 
@@ -414,7 +427,7 @@
             this.btnCommon1.TabIndex = 29;
             this.btnCommon1.Text = "Common1";
             this.btnCommon1.UseVisualStyleBackColor = true;
-            this.btnCommon1.Click += new System.EventHandler(this.btnCommon1_Click);
+            this.btnCommon1.Click += new System.EventHandler(this.BtnCommon1_Click);
             // 
             // txtTest2
             // 
@@ -787,13 +800,27 @@
             this.dgvBending.Name = "dgvBending";
             this.dgvBending.RowHeadersWidth = 51;
             this.dgvBending.RowTemplate.Height = 27;
-            this.dgvBending.Size = new System.Drawing.Size(854, 357);
+            this.dgvBending.Size = new System.Drawing.Size(854, 358);
             this.dgvBending.TabIndex = 19;
             this.dgvBending.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvBending_CellValueChanged);
             // 
             // saveFileDialog1
             // 
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveFileDialog_FileOk);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialog_FileOk);
+            // 
+            // btnFitAll
+            // 
+            this.btnFitAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFitAll.Image = ((System.Drawing.Image)(resources.GetObject("btnFitAll.Image")));
+            this.btnFitAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFitAll.Name = "btnFitAll";
+            this.btnFitAll.Size = new System.Drawing.Size(29, 24);
+            this.btnFitAll.Text = "FitAll";
+            this.btnFitAll.Click += new System.EventHandler(this.BtnFitAll_Click);
             // 
             // TestForm
             // 
@@ -905,5 +932,7 @@
         private System.Windows.Forms.Button btnEn;
         private System.Windows.Forms.TextBox txtTest;
         private System.Windows.Forms.Button btnCommon1;
+        private System.Windows.Forms.Button btnAnimation;
+        private System.Windows.Forms.ToolStripButton btnFitAll;
     }
 }

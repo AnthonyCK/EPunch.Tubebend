@@ -127,7 +127,7 @@ namespace EPunch.Tubebend
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return String.Empty;
                 }
